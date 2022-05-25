@@ -68,6 +68,7 @@ function getOperatorFunction() {
         }
     }
 }
+
 /*Function push screen display number and operator type to array*/
 function pushOperator(operator) {
     storedValue.push(+screen.textContent);
@@ -81,7 +82,19 @@ function populateScreen(e) {
     screen.textContent += e.target.textContent;
 }
 
+/*Button function to respond under certain conditions*/
+function numberBtn(e,a){
+    if (e.target.textContent === a && typeof storedValue[storedValue.length-1] === 'string') {
+        populateScreen(e);
+    } else {
+        if (e.target.textContent === a) {
+            screen.textContent += e.target.textContent;
+        }
+    }
+}
+/*Operator function uses all the above function for its logic*/
 function operator(e) {
+
     /*Operator action*/
     if (e.target.value === '-') {
         getOperatorFunction();
@@ -107,76 +120,17 @@ function operator(e) {
     }
 
     /*Button action*/
-    if (e.target.textContent === '1' && typeof storedValue[storedValue.length-1] === 'string') {
-        populateScreen(e);
-    } else {
-        if (e.target.textContent === '1') {
-            screen.textContent += e.target.textContent;
-        }
-    }
-    if (e.target.textContent === '2' && typeof storedValue[storedValue.length-1] === 'string') {
-        populateScreen(e);
-    } else {
-        if (e.target.textContent === '2') {
-            screen.textContent += e.target.textContent;
-        }
-    }
-    if (e.target.textContent === '3' && typeof storedValue[storedValue.length-1] === 'string') {
-        populateScreen(e);
-    } else {
-        if (e.target.textContent === '3') {
-            screen.textContent += e.target.textContent;
-        }
-    }
-    if (e.target.textContent === '4' && typeof storedValue[storedValue.length-1] === 'string') {
-        populateScreen(e);
-    } else {
-        if (e.target.textContent === '4') {
-            screen.textContent += e.target.textContent;
-        }
-    }
-    if (e.target.textContent === '5' && typeof storedValue[storedValue.length-1] === 'string') {
-        populateScreen(e);
-    } else {
-        if (e.target.textContent === '5') {
-            screen.textContent += e.target.textContent;
-        }
-    }
-    if (e.target.textContent === '6' && typeof storedValue[storedValue.length-1] === 'string') {
-        populateScreen(e);
-    } else {
-        if (e.target.textContent === '6') {
-            screen.textContent += e.target.textContent;
-        }
-    }
-    if (e.target.textContent === '7' && typeof storedValue[storedValue.length-1] === 'string') {
-        populateScreen(e);
-    } else {
-        if (e.target.textContent === '7') {
-            screen.textContent += e.target.textContent;
-        }
-    }
-    if (e.target.textContent === '8' && typeof storedValue[storedValue.length-1] === 'string') {
-        populateScreen(e);
-    } else {
-        if (e.target.textContent === '8') {
-            screen.textContent += e.target.textContent;
-        }
-    }
-    if (e.target.textContent === '9' && typeof storedValue[storedValue.length-1] === 'string') {
-        populateScreen(e);
-    } else {
-        if (e.target.textContent === '9') {
-            screen.textContent += e.target.textContent;
-        }
-    }
-    if (e.target.textContent === '0' && typeof storedValue[storedValue.length-1] === 'string') {
-        populateScreen(e);
-    } else {
-        if (e.target.textContent === '0') {
-            screen.textContent += e.target.textContent;
-        }
-    }
+    numberBtn(e,'1');
+    numberBtn(e,'2');
+    numberBtn(e,'3');
+    numberBtn(e,'4');
+    numberBtn(e,'5');
+    numberBtn(e,'6');
+    numberBtn(e,'7');
+    numberBtn(e,'8');
+    numberBtn(e,'9');
+    numberBtn(e,'0');
+
     /*Clears each digit on button click*/
     if (e.target.textContent === '<=') {
         backspace = [];
@@ -188,6 +142,7 @@ function operator(e) {
         screen.textContent = toStrings;
     }
 }
+
 /*Event listeners*/
 buttonContainer.addEventListener('click', operator);
 clearButton.addEventListener('click', () => {
