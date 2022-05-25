@@ -11,7 +11,7 @@ body {
     justify-content: flex-end;
 }
 
-.buttons {
+.buttoncontainer {
     width: 150px;
     margin: auto;
     padding: 0px;

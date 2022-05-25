@@ -190,4 +190,8 @@ function operator(e) {
 }
 /*Event listeners*/
 buttonContainer.addEventListener('click', operator);
-clearButton.addEventListener('click', () => {screen.textContent = ''; storedValue = [];storedOperator = [];});
+clearButton.addEventListener('click', () => {
+    screen.textContent = '';
+    storedValue = [];
+    storedOperator = [];
+});
