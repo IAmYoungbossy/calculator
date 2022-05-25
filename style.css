@@ -1,0 +1,41 @@
+body {
+    background-color: rgb(32, 22, 22);
+}
+
+#screen {
+    border: 2px solid grey;
+    height: 30px;
+    width: 150px;
+    padding: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.buttons {
+    width: 150px;
+    margin: auto;
+    padding: 0px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn {
+    width: 50px;
+    height: 50px;
+    box-sizing: border-box;
+    margin: 0px;
+    background-color: rgb(219, 161, 161);
+}
+
+h1 {
+    margin: auto;
+    text-align: center;
+    color: white;
+}
+
+#header {
+    margin: auto;
+    width: 150px;
+}
