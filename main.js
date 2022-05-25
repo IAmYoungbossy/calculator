@@ -68,3 +68,15 @@ function getOperatorFunction() {
         }
     }
 }
+/*Function push screen display number and operator type to array*/
+function push(operator) {
+    storedValue.push(+screen.textContent);
+    storedValue.push(operator);
+    storedOperator.push(operator);
+}
+/*Function to populate screen with numbers from buttons*/
+function populateScreen(e) {
+    screen.textContent = '';
+    storedValue.pop(storedValue[storedValue.length-2]);
+    screen.textContent += e.target.textContent;
+}
