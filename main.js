@@ -187,5 +187,11 @@ function operator(e) {
         screen.textContent = '';
         screen.textContent = toStrings;
     }
-    
 }
+/*Event listeners*/
+buttonContainer.addEventListener('click', operator);
+clearButton.addEventListener('click', () => {
+    screen.textContent = '';
+    storedValue = [];
+    storedOperator = [];
+})
