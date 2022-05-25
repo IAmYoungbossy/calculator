@@ -31,3 +31,40 @@ function findFactorial(factorial) {
     }
     return multiply;
 }
+
+/*Function to check operator type and assign type operator function*/
+function getOperatorFunction() {
+    if (storedOperator[storedOperator.length-1] === '+') {
+        storedValue.push(+screen.textContent);
+        screen.textContent = '';
+        result = add((storedValue[storedValue.length-2]), (storedValue[storedValue.length-1]));
+        screen.textContent = result;
+        storedValue.push(+screen.textContent);
+        storedValue.push('clear');
+    } else if (storedOperator[storedOperator.length-1] === '-') {
+        storedValue.push(+screen.textContent);
+        screen.textContent = '';
+        result = subtract((storedValue[storedValue.length-2]), (storedValue[storedValue.length-1]));
+        screen.textContent = result;
+        storedValue.push(+screen.textContent);
+        storedValue.push('clear');
+    } else if (storedOperator[storedOperator.length-1] === '*') {
+        storedValue.push(+screen.textContent);
+        screen.textContent = '';
+        result = multiply((storedValue[storedValue.length-2]), (storedValue[storedValue.length-1]));
+        screen.textContent = result;
+        storedValue.push(+screen.textContent);
+        storedValue.push('clear');
+    } else if (storedOperator[storedOperator.length-1] === '/') {
+        storedValue.push(+screen.textContent);
+        screen.textContent = '';
+        result = divide((storedValue[storedValue.length-2]), (storedValue[storedValue.length-1]));
+        screen.textContent = result;
+        storedValue.push(+screen.textContent);
+        storedValue.push('clear');
+    } else {
+        if (storedOperator[storedOperator.length-1] !== 'string') {
+            return;
+        }
+    }
+}
