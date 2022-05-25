@@ -31,37 +31,26 @@ function findFactorial(factorial) {
     }
     return multiply;
 }
+/*Function calls operator function*/
+function getOperatorTwo(operatorFunction) {
+    storedValue.push(+screen.textContent);
+    screen.textContent = '';
+    result = operatorFunction((storedValue[storedValue.length-2]), (storedValue[storedValue.length-1]));
+    screen.textContent = result;
+    storedValue.push(+screen.textContent);
+    storedValue.push('clear');
+}
 
 /*Function to check operator type and assign type operator function*/
 function getOperatorFunction() {
     if (storedOperator[storedOperator.length-1] === '+') {
-        storedValue.push(+screen.textContent);
-        screen.textContent = '';
-        result = add((storedValue[storedValue.length-2]), (storedValue[storedValue.length-1]));
-        screen.textContent = result;
-        storedValue.push(+screen.textContent);
-        storedValue.push('clear');
+            getOperatorTwo(add);
     } else if (storedOperator[storedOperator.length-1] === '-') {
-        storedValue.push(+screen.textContent);
-        screen.textContent = '';
-        result = subtract((storedValue[storedValue.length-2]), (storedValue[storedValue.length-1]));
-        screen.textContent = result;
-        storedValue.push(+screen.textContent);
-        storedValue.push('clear');
+            getOperatorTwo(subtract);
     } else if (storedOperator[storedOperator.length-1] === '*') {
-        storedValue.push(+screen.textContent);
-        screen.textContent = '';
-        result = multiply((storedValue[storedValue.length-2]), (storedValue[storedValue.length-1]));
-        screen.textContent = result;
-        storedValue.push(+screen.textContent);
-        storedValue.push('clear');
+            getOperatorTwo(multiply);
     } else if (storedOperator[storedOperator.length-1] === '/') {
-        storedValue.push(+screen.textContent);
-        screen.textContent = '';
-        result = divide((storedValue[storedValue.length-2]), (storedValue[storedValue.length-1]));
-        screen.textContent = result;
-        storedValue.push(+screen.textContent);
-        storedValue.push('clear');
+            getOperatorTwo(divide);
     } else {
         if (storedOperator[storedOperator.length-1] !== 'string') {
             return;
@@ -81,7 +70,6 @@ function populateScreen(e) {
     storedValue.pop(storedValue[storedValue.length-2]);
     screen.textContent += e.target.textContent;
 }
-
 /*Button function to respond under certain conditions*/
 function numberBtn(e,a){
     if (e.target.textContent === a && typeof storedValue[storedValue.length-1] === 'string') {
