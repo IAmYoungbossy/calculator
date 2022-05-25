@@ -1,9 +1,9 @@
 /*Caching DOM*/
 const screen = document.querySelector('#screen');
 const buttonContainer = document.querySelector('.buttoncontainer');
-const numberButtons = buttonContainer.querySelectorAll('btn');
+const numberButtons = buttonContainer.querySelectorAll('.btn');
 const btnOperator = buttonContainer.querySelectorAll('.btn-operator');
-const clearButton = buttonContainer.querySelector('btn-clear');
+const clearButton = buttonContainer.querySelector('#clear');
 /*Variable declaration*/
 let storedValue = [];
 let storedOperator = [];
@@ -190,8 +190,4 @@ function operator(e) {
 }
 /*Event listeners*/
 buttonContainer.addEventListener('click', operator);
-clearButton.addEventListener('click', () => {
-    screen.textContent = '';
-    storedValue = [];
-    storedOperator = [];
-})
+clearButton.addEventListener('click', () => {screen.textContent = ''; storedValue = [];storedOperator = [];});
