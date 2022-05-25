@@ -6,7 +6,7 @@ body {
     border: 2px solid grey;
     height: 30px;
     width: 150px;
-    padding: flex;
+    display: flex;
     align-items: center;
     justify-content: flex-end;
     color: white;
