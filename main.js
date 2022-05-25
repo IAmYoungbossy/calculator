@@ -96,7 +96,7 @@ function operator(e) {
     } else if (e.target.value === '*') {
         getOperatorFunction();
         pushOperator('*');
-    } else if (e.target.value === '!n') {
+    } else if (e.target.value === '!') {
         storedValue.push(+screen.textContent);
         screen.textContent = '';
         result = findFactorial(storedValue[storedValue.length-1]);
