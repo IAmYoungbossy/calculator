@@ -80,7 +80,6 @@ function getOperatorFunction() {
         }
     }
 }
-
 /*Function push screen display number and operator type to array*/
 function pushOperator(operator) {
     storedValue.push(+screen.textContent);
@@ -126,10 +125,21 @@ function addDecimal(e) {
 		}
 	}
 }
+/*Backspace function to clear each number*/
+function clearNumber(e) {
+    if (e.target.textContent === '<=') {
+        backspace = [];
+        backspace = [...screen.textContent+''];//push numbers on screen to array
+        backspace.pop(backspace[backspace.length-1]);
+        result = backspace.toString();
+        toStrings = result.replace(/,/g, '');
+        screen.textContent = '';
+        screen.textContent = toStrings;
+    }
+}
 
 /*Operator function uses all the above function for its logic*/
 function operator(e) {
-
     /*Operator action*/
     if (e.target.value === '-') {
         operatorAction('-');
@@ -169,15 +179,7 @@ function operator(e) {
     numberBtn(e,'0');
 
     /*Clears each digit on button click*/
-    if (e.target.textContent === '<=') {
-        backspace = [];
-        backspace = [...screen.textContent+''];
-        backspace.pop(backspace[backspace.length-1]);
-        result = backspace.toString();
-        toStrings = result.replace(/,/g, '');
-        screen.textContent = '';
-        screen.textContent = toStrings;
-    }
+    clearNumber(e);
 }
 /*Event listeners*/
 buttonContainer.addEventListener('click', operator);
