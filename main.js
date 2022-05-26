@@ -13,23 +13,45 @@ let toStrings;
 
 /*Operator Functions*/
 function add(a,b) {
-    return a+b;
+    if (typeof a !== 'number' || typeof b !== 'number') {
+        return screen.textContent = storedValue[0];
+    } else {
+        return a+b;
+    }
 }
 function subtract(a,b) {
-    return a-b;
+    if (typeof a !== 'number' || typeof b !== 'number') {
+        return screen.textContent = storedValue[0];
+    } else {
+        return a-b;
+    }
 }
 function multiply(a,b) {
-    return a*b;
+    if (typeof a !== 'number' || typeof b !== 'number') {
+        return screen.textContent = storedValue[0];
+    } else {
+        return a*b;
+    }
 }
 function divide(a,b) {
-    return a/b;
+    if (typeof a !== 'number' || typeof b !== 'number') {
+        return screen.textContent = storedValue[0];
+    } else if (b === 0) {
+        return screen.textContent = 'Error';
+    } else {
+        return a/b;
+    }
 }
 function findFactorial(factorial) {
     let multiply = 1;
-    for (; factorial !== 0; factorial--) {
-        multiply *= factorial;
+    if (typeof factorial !== 'number') {
+        return screen.textContent = storedValue[0];
+    } else {
+        for (; factorial !== 0; factorial--) {
+            multiply *= factorial;
+        }
+        return multiply;
     }
-    return multiply;
 }
 /*Function calls operator function*/
 function getOperatorTwo(operatorFunction) {
