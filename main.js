@@ -109,6 +109,23 @@ function operatorAction(operator) {
     storedValue = [];
     pushOperator(operator);
 }
+/*For operating numbers with decimals*/
+function addDecimal(e) {
+    if (e.target.textContent === '.' && typeof storedValue[storedValue.length-1] === 'string') {
+		screen.textContent = '0';
+		storedValue.pop();
+		screen.textContent += e.target.textContent;
+	} else if (e.target.textContent === '.' && (screen.textContent).indexOf('.') >= 0) {
+		return;
+	} else {
+		if (e.target.textContent === '.' && screen.textContent !== '') {
+			screen.textContent += e.target.textContent;
+		} else if (e.target.textContent === '.' && screen.textContent === '') {
+			screen.textContent = '0';
+			screen.textContent += e.target.textContent;
+		}
+	}
+}
 
 /*Operator function uses all the above function for its logic*/
 function operator(e) {
@@ -136,6 +153,8 @@ function operator(e) {
     } else if (e.target.value === '=') {
         getOperatorFunction();
     }
+    /*For floating number*/
+    addDecimal(e);
 
     /*Button action*/
     numberBtn(e,'1');
