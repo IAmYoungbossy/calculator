@@ -61,6 +61,7 @@ function getOperatorTwo(operatorFunction) {
     screen.textContent = result;
     storedValue.push(+screen.textContent);
     storedValue.push('clear');
+    storedOperator = [];
 }
 
 /*Function to check operator type and assign type operator function*/
@@ -89,7 +90,7 @@ function pushOperator(operator) {
 /*Function to populate screen with numbers from buttons*/
 function populateScreen(e) {
     screen.textContent = '';
-    storedValue.pop(storedValue[storedValue.length-2]);
+    storedValue.pop();
     screen.textContent += e.target.textContent;
 }
 /*Button function to respond under certain conditions*/
@@ -108,15 +109,19 @@ function operator(e) {
     /*Operator action*/
     if (e.target.value === '-') {
         getOperatorFunction();
+        storedValue = [];
         pushOperator('-');
     } else if (e.target.value === '+') {
         getOperatorFunction();
+        storedValue = [];
         pushOperator('+');
     } else if (e.target.value === '/') {
         getOperatorFunction();
+        storedValue = [];
         pushOperator('/');
     } else if (e.target.value === '*') {
         getOperatorFunction();
+        storedValue = [];
         pushOperator('*');
     } else if (e.target.value === '!') {
         storedValue.push(+screen.textContent);
