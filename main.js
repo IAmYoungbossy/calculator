@@ -37,7 +37,7 @@ function divide(a,b) {
     if (typeof a !== 'number' || typeof b !== 'number') {
         return screen.textContent = storedValue[0];
     } else if (b === 0) {
-        return screen.textContent = 'Error';
+        return screen.textContent = 'Error!';
     } else {
         return a/b;
     }
@@ -103,33 +103,36 @@ function numberBtn(e,a){
         }
     }
 }
+/*This is just to remove repeated code*/
+function operatorAction(operator) {
+    getOperatorFunction();
+    storedValue = [];
+    pushOperator(operator);
+}
+
 /*Operator function uses all the above function for its logic*/
 function operator(e) {
 
     /*Operator action*/
     if (e.target.value === '-') {
-        getOperatorFunction();
-        storedValue = [];
-        pushOperator('-');
+        operatorAction('-');
     } else if (e.target.value === '+') {
-        getOperatorFunction();
-        storedValue = [];
-        pushOperator('+');
+        operatorAction('+');
     } else if (e.target.value === '/') {
-        getOperatorFunction();
-        storedValue = [];
-        pushOperator('/');
+        operatorAction('/');
     } else if (e.target.value === '*') {
-        getOperatorFunction();
-        storedValue = [];
-        pushOperator('*');
+        operatorAction('*');
     } else if (e.target.value === '!') {
-        storedValue.push(+screen.textContent);
-        screen.textContent = '';
-        result = findFactorial(storedValue[storedValue.length-1]);
-        screen.textContent = result;
-        storedValue.push(+screen.textContent);
-        storedValue.push('clear');
+        if (screen.textContent === 'Error!') {
+            return;
+        } else {
+            storedValue.push(+screen.textContent);
+            screen.textContent = '';
+            result = findFactorial(storedValue[storedValue.length-1]);
+            screen.textContent = result;
+            storedValue.push(+screen.textContent);
+            storedValue.push('clear');
+        }
     } else if (e.target.value === '=') {
         getOperatorFunction();
     }
@@ -157,7 +160,6 @@ function operator(e) {
         screen.textContent = toStrings;
     }
 }
-
 /*Event listeners*/
 buttonContainer.addEventListener('click', operator);
 clearButton.addEventListener('click', () => {
