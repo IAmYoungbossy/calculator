@@ -13,28 +13,28 @@ let toStrings;
 
 /*Operator Functions*/
 function add(a,b) {
-    if (typeof a !== 'number' || typeof b !== 'number') {
+    if (Number.isFinite(parseFloate(a)) === false || Number.isFinite(parseFloat(b)) === false) {
         return screen.textContent = storedValue[0];
     } else {
         return a+b;
     }
 }
 function subtract(a,b) {
-    if (typeof a !== 'number' || typeof b !== 'number') {
+    if (Number.isFinite(parseFloate(a)) === false || Number.isFinite(parseFloat(b)) === false) {
         return screen.textContent = storedValue[0];
     } else {
         return a-b;
     }
 }
 function multiply(a,b) {
-    if (typeof a !== 'number' || typeof b !== 'number') {
+    if (Number.isFinite(parseFloate(a)) === false || Number.isFinite(parseFloat(b)) === false) {
         return screen.textContent = storedValue[0];
     } else {
         return a*b;
     }
 }
 function divide(a,b) {
-    if (typeof a !== 'number' || typeof b !== 'number') {
+    if (Number.isFinite(parseFloate(a)) === false || Number.isFinite(parseFloat(b)) === false) {
         return screen.textContent = storedValue[0];
     } else if (b === 0) {
         return screen.textContent = 'Error!';
@@ -55,11 +55,11 @@ function findFactorial(factorial) {
 }
 /*Function calls operator function*/
 function getOperatorTwo(operatorFunction) {
-    storedValue.push(+screen.textContent);
+    storedValue.push(parseFloat(screen.textContent));
     screen.textContent = '';
     result = operatorFunction((storedValue[storedValue.length-2]), (storedValue[storedValue.length-1]));
     screen.textContent = result;
-    storedValue.push(+screen.textContent);
+    storedValue.push(parseFloat(screen.textContent));
     storedValue.push('clear');
     storedOperator = [];
 }
@@ -72,7 +72,7 @@ function getOperatorFunction() {
             getOperatorTwo(subtract);
     } else if (storedOperator[storedOperator.length-1] === '*') {
             getOperatorTwo(multiply);
-    } else if (storedOperator[storedOperator.length-1] === '/') {
+    } else if (storedOperator[storedOperator.length-1] === '÷') {
             getOperatorTwo(divide);
     } else {
         if (storedOperator[storedOperator.length-1] !== 'string') {
@@ -82,7 +82,7 @@ function getOperatorFunction() {
 }
 /*Function push screen display number and operator type to array*/
 function pushOperator(operator) {
-    storedValue.push(+screen.textContent);
+    storedValue.push(parseFloat(screen.textContent));
     storedValue.push(operator);
     storedOperator.push(operator);
 }
@@ -146,7 +146,7 @@ function operator(e) {
     } else if (e.target.value === '+') {
         operatorAction('+');
     } else if (e.target.value === '÷') {
-        operatorAction('/');
+        operatorAction('÷');
     } else if (e.target.value === '*') {
         operatorAction('*');
     } else if (e.target.value === '!n') {
