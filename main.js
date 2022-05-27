@@ -127,7 +127,7 @@ function addDecimal(e) {
 }
 /*Backspace function to clear each number*/
 function clearNumber(e) {
-    if (e.target.textContent === '<=') {
+    if (e.target.textContent === 'Delete') {
         backspace = [];
         backspace = [...screen.textContent+''];//push numbers on screen to array
         backspace.pop(backspace[backspace.length-1]);
@@ -145,11 +145,11 @@ function operator(e) {
         operatorAction('-');
     } else if (e.target.value === '+') {
         operatorAction('+');
-    } else if (e.target.value === '/') {
+    } else if (e.target.value === '÷') {
         operatorAction('/');
     } else if (e.target.value === '*') {
         operatorAction('*');
-    } else if (e.target.value === '!') {
+    } else if (e.target.value === '!n') {
         if (screen.textContent === 'Error!') {
             return;
         } else {
