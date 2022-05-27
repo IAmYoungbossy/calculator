@@ -10,38 +10,45 @@
 </head>
 <body>
     <header id="header">
-        <h1>Calculator</h1>
+        <!--h1>Calculator</h1-->
     </header>
     <main>
-        <div class="buttoncontainer">
-            <div id="screen"></div>
-            <br>
-            <br>
+        <div class="buttons">
+            <div id="screen-container">
+                <div id="top-display">
+                    <span id="calculator-display"></span>
+                </div>
+                    
+                <div id="down-display">
+                    <span id="screen"></span>
+                </div>
+            </div>
+            <div id="power"></div>
+        
+            <button id="backspace" class="btn btn-operator top">Delete</button>
+            <button id="clear" class="btn-clear btn btn-operator top" value="clear">Clear</button>
+            <button id="factorial" class="btn btn-operator top" value="!n">!n</button>
+            <button id="divide" class="btn-operator btn" value="÷">÷</button>
+
             <button class="btn">7</button>
             <button class="btn">8</button>
             <button class="btn">9</button>
-            <br>
+            <button id="multiply" class="btn-operator btn" value="*">×</button>
+
             <button class="btn">4</button>
             <button class="btn">5</button>
             <button class="btn">6</button>
-            <br>
+            <button id="subtract" class="btn-operator btn" value="-">-</button>
+
             <button class="btn">1</button>
             <button class="btn">2</button>
             <button class="btn">3</button>
-            <br>
-            <button id="plus" class="btn-operator" value="+">+</button>
-            <button id="subtract" class="btn-operator" value="-">-</button>
+            <button id="plus" class="btn-operator btn" value="+">+</button>
+
+            <button id="negativeplus"class="btn">-/+</button>
             <button class="btn" value="0">0</button>
-            <br>
-            <button id="divide" class="btn-operator" value="/">/</button>
-            <button id="multiply" class="btn-operator" value="*">*</button>
-            <button id="equal" class="btn-operator" value="=">=</button>
-            <br>
-            <button id="facrorial" class="btn-operator" value="!">!</button>
-            <button id="clear" class="btn-operator" value="clear">Clear</button>
-            <button id="backspace" class="btn-backspace" value="<="><=</button>
-            <br>
-            <button id="dot" class="btn" value=".">.</button>
+            <button id="decimal" class="btn-decimal btn" value="."><span id="dot">.</span></button>
+            <button id="equal" class=" btn btn-operator" value="=">=</button>
         </div>
     </main>
 </body>
