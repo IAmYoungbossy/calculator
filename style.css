@@ -1,3 +1,7 @@
+@font-face {
+    font-family: myFirstFont;
+    src: url(../calculator/font/Digital7Mono-B1g5.ttf);
+  }
 body {
     background-color: rgb(32, 22, 22);
 }
