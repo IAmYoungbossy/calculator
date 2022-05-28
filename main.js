@@ -13,28 +13,28 @@ let toStrings;
 
 /*Operator Functions*/
 function add(a,b) {
-    if (Number.isFinite(parseFloate(a)) === false || Number.isFinite(parseFloat(b)) === false) {
+    if (Number.isFinite(parseFloat(a)) === false || Number.isFinite(parseFloat(b)) === false) {
         return screen.textContent = storedValue[0];
     } else {
         return a+b;
     }
 }
 function subtract(a,b) {
-    if (Number.isFinite(parseFloate(a)) === false || Number.isFinite(parseFloat(b)) === false) {
+    if (Number.isFinite(parseFloat(a)) === false || Number.isFinite(parseFloat(b)) === false) {
         return screen.textContent = storedValue[0];
     } else {
         return a-b;
     }
 }
 function multiply(a,b) {
-    if (Number.isFinite(parseFloate(a)) === false || Number.isFinite(parseFloat(b)) === false) {
+    if (Number.isFinite(parseFloat(a)) === false || Number.isFinite(parseFloat(b)) === false) {
         return screen.textContent = storedValue[0];
     } else {
         return a*b;
     }
 }
 function divide(a,b) {
-    if (Number.isFinite(parseFloate(a)) === false || Number.isFinite(parseFloat(b)) === false) {
+    if (Number.isFinite(parseFloat(a)) === false || Number.isFinite(parseFloat(b)) === false) {
         return screen.textContent = storedValue[0];
     } else if (b === 0) {
         return screen.textContent = 'Error!';
@@ -70,7 +70,7 @@ function getOperatorFunction() {
             getOperatorTwo(add);
     } else if (storedOperator[storedOperator.length-1] === '-') {
             getOperatorTwo(subtract);
-    } else if (storedOperator[storedOperator.length-1] === '*') {
+    } else if (storedOperator[storedOperator.length-1] === '×') {
             getOperatorTwo(multiply);
     } else if (storedOperator[storedOperator.length-1] === '÷') {
             getOperatorTwo(divide);
@@ -147,8 +147,8 @@ function operator(e) {
         operatorAction('+');
     } else if (e.target.value === '÷') {
         operatorAction('÷');
-    } else if (e.target.value === '*') {
-        operatorAction('*');
+    } else if (e.target.value === '×') {
+        operatorAction('×');
     } else if (e.target.value === '!n') {
         if (screen.textContent === 'Error!') {
             return;
