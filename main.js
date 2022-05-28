@@ -136,6 +136,7 @@ function addDecimal(e) {
 /*Backspace function to clear each number*/
 function clearNumber(e) {
     if (e.target.textContent === 'Delete') {
+        screenLength.pop();
         backspace = [];
         backspace = [...screen.textContent+''];//push numbers on screen to array
         backspace.pop(backspace[backspace.length-1]);
@@ -151,7 +152,7 @@ function countScreenLength() {
 		screenLength.pop();
 		screen.textContent = 'Large Number';
 		setTimeout(function() {
-			let display = screenLength.join('');
+			let display = screenLength[screenLength.length-1];
 			screen.textContent = display;
 		}, 1500);
 	}
@@ -206,4 +207,5 @@ clearButton.addEventListener('click', () => {
     screen.textContent = '';
     storedValue = [];
     storedOperator = [];
+    screenLength = [];
 });
