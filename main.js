@@ -71,7 +71,6 @@ function getOperatorTwo(operatorFunction) {
     storedValue.push('clear');
     storedOperator = [];
 }
-
 /*Function to check operator type and assign type operator function*/
 function getOperatorFunction() {
     if (storedOperator[storedOperator.length-1] === '+') {
@@ -181,7 +180,6 @@ function countScreenLength() {
 		}, 1500);
 	}
 }
-
 /*Operator function uses all the above function for its logic*/
 function operator(e) {
     /*Operator action*/
@@ -215,16 +213,11 @@ function operator(e) {
     addDecimal(e);
 
     /*Button action*/
-    numberBtn(e,'1');
-    numberBtn(e,'2');
-    numberBtn(e,'3');
-    numberBtn(e,'4');
-    numberBtn(e,'5');
-    numberBtn(e,'6');
-    numberBtn(e,'7');
-    numberBtn(e,'8');
-    numberBtn(e,'9');
-    numberBtn(e,'0');
+    let i = 0;
+    for(; i < 10; i++){
+        numberBtn(e, `${i}`);
+    }
+    numberBtn(e, `${i}`);
 
     /*Clears each digit on button click*/
     clearNumber(e);
