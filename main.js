@@ -7,6 +7,7 @@ const clearButton = buttonContainer.querySelector('#clear');
 /*Variable declaration*/
 let storedValue = [];
 let storedOperator = [];
+let screenLength = [];
 let result;
 let backspace;
 let toStrings;
@@ -93,6 +94,8 @@ function populateScreen(e) {
     screen.textContent = '';
     storedValue.pop();
     screen.textContent += e.target.textContent;
+    screenLength.push(screen.textContent);
+	countScreenLength();
 }
 /*Button function to respond under certain conditions*/
 function numberBtn(e,a){
@@ -101,6 +104,9 @@ function numberBtn(e,a){
     } else {
         if (e.target.textContent === a) {
             screen.textContent += e.target.textContent;
+            screenLength.push(screen.textContent);
+            countScreenLength();
+
         }
     }
 }
@@ -138,6 +144,17 @@ function clearNumber(e) {
         screen.textContent = '';
         screen.textContent = toStrings;
     }
+}
+
+function countScreenLength() {
+	if (screenLength.length > 20) {
+		screenLength.pop();
+		screen.textContent = 'Large Number';
+		setTimeout(function() {
+			let display = screenLength.join('');
+			screen.textContent = display;
+		}, 1500);
+	}
 }
 
 /*Operator function uses all the above function for its logic*/
