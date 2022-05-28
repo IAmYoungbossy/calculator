@@ -153,14 +153,21 @@ function addDecimal(e) {
 /*Backspace function to clear each number*/
 function clearNumber(e) {
     if (e.target.textContent === 'Delete') {
-        screenLength.pop();
-        backspace = [];
-        backspace = [...screen.textContent+''];//push numbers on screen to array
-        backspace.pop(backspace[backspace.length-1]);
-        result = backspace.toString();
-        toStrings = result.replace(/,/g, '');
-        screen.textContent = '';
-        screen.textContent = toStrings;
+		screenLength.pop();
+		backspace = [];
+		screenDisplay = []; //
+		backspace = [...screen.textContent+'']//.map(n=>+n)
+		screenDisplay = [...calcDisplay.textContent+'']; //
+		backspace.pop(backspace[backspace.length-1]);
+		screenDisplay.pop(screenDisplay[screenDisplay.length-1]); //
+		result = backspace.toString();
+		displayResult = screenDisplay.toString(); //
+		toString = result.replace(/,/g, '');
+		displayToStrings = displayResult.replace(/,/g, ''); //
+		screen.textContent = '';
+		calcDisplay.textContent = ''; //
+		screen.textContent = toString;
+		calcDisplay.textContent = displayToStrings;
     }
 }
 
@@ -226,6 +233,7 @@ function operator(e) {
 buttonContainer.addEventListener('click', operator);
 clearButton.addEventListener('click', () => {
     screen.textContent = '';
+    calcDisplay.textContent = '';
     storedValue = [];
     storedOperator = [];
     screenLength = [];
