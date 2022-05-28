@@ -12,11 +12,20 @@ main {
     width: 295px;
     height: 40px;
 }
+#display-unit {
+	border: 2px solid  #2E2B32;
+	background-color: #2E2B32;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	border-radius: 5px;
+	box-shadow: 0px 0px 5px black;
+	padding: 2px 2px 0px;
+}
 #screen-container, #down-display {
     border: 2px solid grey;
 	height: 100px;
 	width: 300px;
-	margin-top: 10px;
+	margin-top: 0px;
 	display: flex;
 	align-items: flex-end;
 	justify-content: flex-end;
@@ -24,11 +33,14 @@ main {
 	color: black;
 	font-size: 2rem;
 	box-sizing: border-box;
-	background-color: #CBCFC2;
+	background-color: /*#CBCFC2*/#AEB59C;
 	flex-wrap: wrap;
 }
+#screen-container {
+	border-radius: 10px;
+}
 #top-display, #down-display {
-	border: 2px solid #CBCFC2;
+	border: 2px solid #AEB59C;
 	height: 49px;
 	width: 300px;
 	margin: 0px;
@@ -38,6 +50,14 @@ main {
 	overflow: auto;
 	display: flex;
 	flex-wrap: wrap;
+}
+#top-display {
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+}
+#down-display {
+	border-bottom-left-radius: 5px;
+	border-bottom-right-radius: 5px;
 }
 #screen {
 	margin: 0px;
@@ -53,10 +73,10 @@ main {
 }
 .buttoncontainer {
 	border: 2px solid black;
-	height: 525px;
+	height: 540px;
 	width: 320px;
 	margin: auto;
-	padding: 0px 0px 5px;
+	padding: 0px 0px 20px;
 	display: flex;
 	align-items: center;
 	flex-wrap: wrap;
@@ -65,14 +85,15 @@ main {
 	border-radius: 15px;
 	column-gap: 5px;
 	box-shadow: 0px 0px 25px black;
-}.btn:hover {
+}
+.btn:hover {
     transform: scale(1.05);
     background-color: grey;
 }
 .btn {
 	border: 2px solid white;
-	width: 70px;
-	height: 70px;
+	width: 68px;
+	height: 68px;
 	box-sizing: border-box;
 	margin: 0px 0px;
 	border-radius: 50px;
@@ -81,14 +102,15 @@ main {
 	font-size: 2.5rem;
 	background-color: #2D333A;
 	cursor: pointer;
-	box-shadow: 0px 0px 3px  white;
+	box-shadow: 0px 8px 8px black;
+	text-shadow: 5px 0px 5px black;
 }
 .btn-operator {
 	background-color: #7ECDD5;
 	color: black;
 	border-color: #96E0FF;
 	border: 8px;
-	box-shadow: 0px 0px 0px;
+	box-shadow: 0px 7px 0px black;
 }
 .btn-operator:hover {
 	background-color: #6DADE2;
@@ -99,7 +121,7 @@ main {
 	border-color: #FFACAD;
 	border: 2px solid;
 	font-weight: bold;
-	box-shadow: 0px 0px 0px;
+	box-shadow: 10px 0px 10px black;
 	color: #4A2223;
 }
 .top:hover {
@@ -145,7 +167,7 @@ h1 {
 }
 #dot {
 	margin: auto;
-	font-size: 50px;
+	font-size: 40px;
 	padding: 0px 0px 25px;
 }
 #negativeplus, #decimal {
