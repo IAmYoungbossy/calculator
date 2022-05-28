@@ -89,10 +89,10 @@ function getOperatorFunction() {
     }
 }
 /*Function push screen display number and operator type to array*/
-function pushOperator(operator) {
+function pushOperator(symbol) {
     storedValue.push(parseFloat(screen.textContent));
-    storedValue.push(operator);
-    storedOperator.push(operator);
+    storedValue.push(symbol);
+    storedOperator.push(symbol);
 }
 /*Function to populate screen with numbers from buttons*/
 function populateScreen(e) {
@@ -103,7 +103,7 @@ function populateScreen(e) {
     screen.textContent = '';
     storedValue.pop();
     screen.textContent += e.target.textContent;
-    calcDisplay.textContent =+ e.target.textContent;
+    calcDisplay.textContent += e.target.textContent;
     screenLength.push(screen.textContent);
 	countScreenLength();
 }
@@ -123,10 +123,11 @@ function numberBtn(e,a){
 }
 /*This is just to remove repeated code*/
 function operatorAction(symbol) {
-    calcDisplay.textContent =+ symbol;
+    calcDisplay.textContent += symbol;
+    display.push(symbol);
     getOperatorFunction();
     storedValue = [];
-    pushOperator(operator);
+    pushOperator(symbol);
 }
 /*For operating numbers with decimals*/
 function addDecimal(e) {
@@ -134,14 +135,18 @@ function addDecimal(e) {
 		screen.textContent = '0';
 		storedValue.pop();
 		screen.textContent += e.target.textContent;
+		calcDisplay.textContent += e.target.textContent;
 	} else if (e.target.textContent === '.' && (screen.textContent).indexOf('.') >= 0) {
 		return;
 	} else {
 		if (e.target.textContent === '.' && screen.textContent !== '') {
 			screen.textContent += e.target.textContent;
+			calcDisplay.textContent += e.target.textContent;
 		} else if (e.target.textContent === '.' && screen.textContent === '') {
 			screen.textContent = '0';
+			calcDisplay.textContent = '0';
 			screen.textContent += e.target.textContent;
+			calcDisplay.textContent += e.target.textContent;
 		}
 	}
 }
