@@ -4,13 +4,18 @@ const buttonContainer = document.querySelector('.buttoncontainer');
 const numberButtons = buttonContainer.querySelectorAll('.btn');
 const btnOperator = buttonContainer.querySelectorAll('.btn-operator');
 const clearButton = buttonContainer.querySelector('#clear');
+const calcDisplay = document.querySelector('#calculator-display');
 /*Variable declaration*/
 let storedValue = [];
 let storedOperator = [];
 let screenLength = [];
+let display = [];
 let result;
+let displayResult;
 let backspace;
+let screenDisplay;
 let toStrings;
+let displayToStrings;
 
 /*Operator Functions*/
 function add(a,b) {
@@ -91,9 +96,14 @@ function pushOperator(operator) {
 }
 /*Function to populate screen with numbers from buttons*/
 function populateScreen(e) {
+    if (display[display.length-1] === '=' || display[display.length-1] === '!n') {
+		calcDisplay.textContent = '';
+	}
+    display.pop();
     screen.textContent = '';
     storedValue.pop();
     screen.textContent += e.target.textContent;
+    calcDisplay.textContent =+ e.target.textContent;
     screenLength.push(screen.textContent);
 	countScreenLength();
 }
@@ -104,6 +114,7 @@ function numberBtn(e,a){
     } else {
         if (e.target.textContent === a) {
             screen.textContent += e.target.textContent;
+            calcDisplay.textContent += e.target.textContent;
             screenLength.push(screen.textContent);
             countScreenLength();
 
@@ -111,7 +122,8 @@ function numberBtn(e,a){
     }
 }
 /*This is just to remove repeated code*/
-function operatorAction(operator) {
+function operatorAction(symbol) {
+    calcDisplay.textContent =+ symbol;
     getOperatorFunction();
     storedValue = [];
     pushOperator(operator);
@@ -170,17 +182,21 @@ function operator(e) {
     } else if (e.target.value === '×') {
         operatorAction('×');
     } else if (e.target.value === '!n') {
-        if (screen.textContent === 'Error!') {
-            return;
-        } else {
-            storedValue.push(+screen.textContent);
-            screen.textContent = '';
-            result = findFactorial(storedValue[storedValue.length-1]);
-            screen.textContent = result;
-            storedValue.push(+screen.textContent);
-            storedValue.push('clear');
-        }
-    } else if (e.target.value === '=') {
+        calcDisplay.textContent += ' !n ';
+		display.push('!n');
+		if (screen.textContent === 'Infinity' || screen.textContent === 'Large Number' || screen.textContent === 'Syntax Error' || screen.textContent === NaN) {
+			return screen.textContent = 'Syntax Error';
+		} else {
+			storedValue.push(parseFloat(screen.textContent));
+			screen.textContent = '';
+			result = findFactorial(storedValue[storedValue.length-1]);
+			screen.textContent = result;
+			storedValue.push(parseFloat(screen.textContent));
+			storedValue.push('-');
+		}
+	} else if (e.target.value === '=') {
+        calcDisplay.textContent += ' Answer ';
+        display.push('=');
         getOperatorFunction();
     }
     /*For floating number*/
