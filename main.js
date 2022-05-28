@@ -44,14 +44,16 @@ function divide(a,b) {
 }
 function findFactorial(factorial) {
     let multiply = 1;
-    if (typeof factorial !== 'number') {
-        return screen.textContent = storedValue[0];
-    } else {
-        for (; factorial !== 0; factorial--) {
-            multiply *= factorial;
-        }
-        return multiply;
-    }
+	if ((factorial > 150) || (Number.isFinite(factorial) === false)) {
+		return screen.textContent = 'Large Number';
+	} else if (typeof factorial !== 'number') {
+		return screen.textContent = storedValue[0];
+	} else {
+		for (; factorial !== 0; factorial--) {
+			multiply *= factorial;
+		}
+		return ((multiply)*10)/10;
+	}
 }
 /*Function calls operator function*/
 function getOperatorTwo(operatorFunction) {
