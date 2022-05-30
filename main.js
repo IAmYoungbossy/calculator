@@ -64,145 +64,10 @@ function findFactorial(factorial) {
 		return ((multiply)*10)/10;
 	}
 }
-/*Function calls operator function*/
-function assignOperator(operate) {
-    storedValue.push(parseFloat(screen.textContent));
-    screen.textContent = '';
-    result = operate((storedValue[storedValue.length-2]), (storedValue[storedValue.length-1]));
-    screen.textContent = result;
-    storedValue.push(parseFloat(screen.textContent));
-    storedValue.push('clear');
-    storedOperator = [];
-}
-/*Function to check operator type and assign type operator function*/
-function getOperator() {
-    if (storedOperator[storedOperator.length-1] === '+') {
-            assignOperator(add);
-    } else if (storedOperator[storedOperator.length-1] === '-') {
-            assignOperator(subtract);
-    } else if (storedOperator[storedOperator.length-1] === '×') {
-            assignOperator(multiply);
-    } else if (storedOperator[storedOperator.length-1] === '÷') {
-            assignOperator(divide);
-    } else {
-        if (storedOperator[storedOperator.length-1] !== 'string') {
-            return;
-        }
-    }
-}
-/*Function push screen display number and operator type to array*/
-function pushOperator(symbol) {
-    storedValue.push(parseFloat(screen.textContent));
-    storedValue.push(symbol);
-    storedOperator.push(symbol);
-}
-/*Function to populate screen with numbers from buttons*/
-function getAnswer(e) {
-    if (display[display.length-1] === '=' || display[display.length-1] === '!n') {
-		calcDisplay.textContent = '';
-	}
-    display.pop();
-    screen.textContent = '';
-    storedValue.pop();
-    screen.textContent += e.target.textContent;
-    calcDisplay.textContent += e.target.textContent;
-    screenLength.push(screen.textContent);
-	countScreenLength();
-}
-/*Button function to respond under certain conditions*/
-function numberBtn(e,a){
-    if (e.target.textContent === a && typeof storedValue[storedValue.length-1] === 'string') {
-        getAnswer(e);
-    } else {
-        if (e.target.textContent === a) {
-            screen.textContent += e.target.textContent;
-            calcDisplay.textContent += e.target.textContent;
-            screenLength.push(screen.textContent);
-            zeroDefault.push(a)
-            countScreenLength();
 
-        }
-    }
-}
-/*This is just to remove repeated code*/
-function operatorAction(symbol) {
-    calcDisplay.textContent += symbol;
-    display.push(symbol);
-    getOperator();
-    storedValue = [];
-    pushOperator(symbol);
-}
-/*For operating numbers with decimals*/
-function addDecimal(e) {
-    if (e.target.textContent === '.' && typeof storedValue[storedValue.length-1] === 'string') {
-		screen.textContent = '0';
-		storedValue.pop();
-		screen.textContent += e.target.textContent;
-		calcDisplay.textContent += e.target.textContent;
-	} else if (e.target.textContent === '.' && (screen.textContent).indexOf('.') >= 0) {
-		return;
-	} else {
-		if (e.target.textContent === '.' && screen.textContent !== '') {
-			screen.textContent += e.target.textContent;
-			calcDisplay.textContent += e.target.textContent;
-		} else if (e.target.textContent === '.' && screen.textContent === '') {
-            zeroDefault.unshift('.');
-			screen.textContent = '0';
-			calcDisplay.textContent = '0';
-			screen.textContent += e.target.textContent;
-			calcDisplay.textContent += e.target.textContent;
-		}
-	}
-}
-/*Backspace function to clear each number*/
-function clearNumber(e) {
-    if (e.target.textContent === 'Delete') {
-		screenLength.pop();
-        zeroDefault.pop();
-        if (zeroDefault.length < 1) {
-            screen2.textContent = '0';
-        }
-		backspace = [];
-		screenDisplay = [];
-		backspace = [...screen.textContent+''];
-		screenDisplay = [...calcDisplay.textContent+''];
-		backspace.pop(backspace[backspace.length-1]);
-		screenDisplay.pop(screenDisplay[screenDisplay.length-1]);
-		result = backspace.toString();
-		displayResult = screenDisplay.toString();
-		toString = result.replace(/,/g, '');
-		displayToStrings = displayResult.replace(/,/g, '');
-		screen.textContent = '';
-		calcDisplay.textContent = '';
-		screen.textContent = toString;
-		calcDisplay.textContent = displayToStrings;
-    }
-}
-/*This function makes sure total digits doesn't exceed 20*/
-function countScreenLength() {
-	if (screenLength.length > 20) {
-		screenLength.pop();
-		screen.textContent = 'Large Number';
-		setTimeout(function() {
-			let display = screenLength[screenLength.length-1];
-			screen.textContent = display;
-            calcDisplay.textContent = display;
-		}, 500);
-	}
-}
-/*This function clears the default zero once a number is entered*/
-function clearDefaultZero(e) {
-    if (zeroDefault.length > 0) {
-        screen2.textContent = '';
-    }
-    if (e.target.textContent === '.') {
-        zeroDefault.push('.')
-        screen2.textContent = '';
-    }
-}
 /*Operator function uses all the above function for its logic*/
 function operator(e) {
-    /*Operator action*/
+    /*Condition for calling operators*/
     if (e.target.value === '-') {
         operatorAction('-');
     } else if (e.target.value === '+') {
@@ -214,7 +79,7 @@ function operator(e) {
     } else if (e.target.value === '!n') {
         calcDisplay.textContent += ' !n ';
 		display.push('!n');
-		if (screen.textContent === 'Infinity' || screen.textContent === 'Large Number' || screen.textContent === 'Syntax Error' || screen.textContent === NaN) {
+		if (screen.textContent === 'Infinity' || screen.textContent === 'Large Number' || screen.textContent === 'Syntax Error' || screen.textContent === 'NaN') {
 			return screen.textContent = 'Syntax Error';
 		} else {
 			storedValue.push(parseFloat(screen.textContent));
@@ -240,11 +105,155 @@ function operator(e) {
     /*For floating number*/
     addDecimal(e);
 
-    /*Clear default zero*/
+    /*Clears default zero*/
     clearDefaultZero(e);
 
     /*Clears each digit on button click*/
     clearNumber(e);
+}
+
+/*This is just to remove repeated code*/
+function operatorAction(symbol) {
+    calcDisplay.textContent += symbol;
+    display.push(symbol);
+    getOperator();
+    storedValue = [];
+    pushOperator(symbol);
+}
+
+/*Function to check operator type and assign type operator function*/
+function getOperator() {
+    if (storedOperator[storedOperator.length-1] === '+') {
+            assignOperator(add);
+    } else if (storedOperator[storedOperator.length-1] === '-') {
+            assignOperator(subtract);
+    } else if (storedOperator[storedOperator.length-1] === '×') {
+            assignOperator(multiply);
+    } else if (storedOperator[storedOperator.length-1] === '÷') {
+            assignOperator(divide);
+    } else {
+        if (storedOperator[storedOperator.length-1] !== 'string') {
+            return;
+        }
+    }
+}
+/*Function calls operator function*/
+function assignOperator(operate) {
+    storedValue.push(parseFloat(screen.textContent));
+    screen.textContent = '';
+    result = operate((storedValue[storedValue.length-2]), (storedValue[storedValue.length-1]));
+    screen.textContent = result;
+    storedValue.push(parseFloat(screen.textContent));
+    storedValue.push('clear');
+    storedOperator = [];
+}
+
+/*Function push screen display number and operator type to array*/
+function pushOperator(symbol) {
+    storedValue.push(parseFloat(screen.textContent));
+    storedValue.push(symbol);
+    storedOperator.push(symbol);
+}
+
+/*Button function to respond under certain conditions*/
+function numberBtn(e,a){
+    if (e.target.textContent === a && typeof storedValue[storedValue.length-1] === 'string') {
+        getAnswer(e);
+    } else {
+        if (e.target.textContent === a) {
+            screen.textContent += e.target.textContent;
+            calcDisplay.textContent += e.target.textContent;
+            screenLength.push(screen.textContent);
+            zeroDefault.push(a)
+            countScreenLength();
+
+        }
+    }
+}
+
+/*This function makes sure total digits doesn't exceed 20*/
+function countScreenLength() {
+	if (screenLength.length > 20) {
+		screenLength.pop();
+		screen.textContent = 'Large Number';
+		setTimeout(function() {
+			let display = screenLength[screenLength.length-1];
+			screen.textContent = display;
+            calcDisplay.textContent = display;
+		}, 500);
+	}
+}
+
+/*Function to populate screen with numbers from buttons*/
+function getAnswer(e) {
+    if (display[display.length-1] === '=' || display[display.length-1] === '!n') {
+		calcDisplay.textContent = '';
+	}
+    display.pop();
+    screen.textContent = '';
+    storedValue.pop();
+    screen.textContent += e.target.textContent;
+    calcDisplay.textContent += e.target.textContent;
+    screenLength.push(screen.textContent);
+	countScreenLength();
+}
+
+/*For operating numbers with decimals*/
+function addDecimal(e) {
+    if (e.target.textContent === '.' && typeof storedValue[storedValue.length-1] === 'string') {
+		screen.textContent = '0';
+		storedValue.pop();
+		screen.textContent += e.target.textContent;
+		calcDisplay.textContent += e.target.textContent;
+	} else if (e.target.textContent === '.' && (screen.textContent).indexOf('.') >= 0) {
+		return;
+	} else {
+		if (e.target.textContent === '.' && screen.textContent !== '') {
+			screen.textContent += e.target.textContent;
+			calcDisplay.textContent += e.target.textContent;
+		} else if (e.target.textContent === '.' && screen.textContent === '') {
+            zeroDefault.unshift('.');
+			screen.textContent = '0';
+			calcDisplay.textContent = '0';
+			screen.textContent += e.target.textContent;
+			calcDisplay.textContent += e.target.textContent;
+		}
+	}
+}
+/*This function clears the default zero once a number is entered*/
+function clearDefaultZero(e) {
+    if (zeroDefault.length > 0) {
+        screen2.textContent = '';
+    }
+    if (e.target.textContent === '.') {
+        zeroDefault.push('.')
+        screen2.textContent = '';
+    }
+}
+
+/*Backspace function to clear each number*/
+function clearNumber(e) {
+    if (e.target.textContent === 'Delete') {
+		screenLength.pop();
+        zeroDefault.pop();
+        if (zeroDefault.length < 1) {
+            screen2.textContent = '0';
+        }
+		backspace = [];
+		screenDisplay = [];
+		backspace = [...screen.textContent+''];
+		screenDisplay = [...calcDisplay.textContent+''];
+		backspace.pop(backspace[backspace.length-1]);
+		screenDisplay.pop(screenDisplay[screenDisplay.length-1]);
+		result = backspace.toString();
+		displayResult = screenDisplay.toString();
+		toString = result.replace(/,/g, '');
+		displayToStrings = displayResult.replace(/,/g, '');
+		screen.textContent = '';
+		calcDisplay.textContent = '';
+		screen.textContent = toString;
+		calcDisplay.textContent = displayToStrings;
+    }
 }
 /*This function clears everything on the screen*/
 function clearAll() {
