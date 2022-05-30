@@ -240,9 +240,8 @@ function operator(e) {
     /*Clears each digit on button click*/
     clearNumber(e);
 }
-/*Event listeners*/
-buttonContainer.addEventListener('click', operator);
-clearButton.addEventListener('click', () => {
+
+function clearAll() {
     screen.textContent = '';
     calcDisplay.textContent = '';
     storedValue = [];
@@ -252,4 +251,11 @@ clearButton.addEventListener('click', () => {
     if (zeroDefault.length < 1) {
         screen2.textContent = '0';
     }
+}
+
+
+/*Event listeners*/
+buttonContainer.addEventListener('click', operator);
+clearButton.addEventListener('click', () => {
+    clearAll();
 });
