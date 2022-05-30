@@ -177,6 +177,7 @@ function countScreenLength() {
 		setTimeout(function() {
 			let display = screenLength[screenLength.length-1];
 			screen.textContent = display;
+            calcDisplay.textContent = display;
 		}, 500);
 	}
 }
