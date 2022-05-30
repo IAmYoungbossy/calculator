@@ -62,25 +62,25 @@ function findFactorial(factorial) {
 	}
 }
 /*Function calls operator function*/
-function getOperatorTwo(operatorFunction) {
+function assignOperator(operate) {//formerly getOperatorTwo
     storedValue.push(parseFloat(screen.textContent));
     screen.textContent = '';
-    result = operatorFunction((storedValue[storedValue.length-2]), (storedValue[storedValue.length-1]));
+    result = operate((storedValue[storedValue.length-2]), (storedValue[storedValue.length-1]));
     screen.textContent = result;
     storedValue.push(parseFloat(screen.textContent));
     storedValue.push('clear');
     storedOperator = [];
 }
 /*Function to check operator type and assign type operator function*/
-function getOperatorFunction() {
+function getOperator() {//formerly getOperatorFunction
     if (storedOperator[storedOperator.length-1] === '+') {
-            getOperatorTwo(add);
+            assignOperator(add);
     } else if (storedOperator[storedOperator.length-1] === '-') {
-            getOperatorTwo(subtract);
+            assignOperator(subtract);
     } else if (storedOperator[storedOperator.length-1] === '×') {
-            getOperatorTwo(multiply);
+            assignOperator(multiply);
     } else if (storedOperator[storedOperator.length-1] === '÷') {
-            getOperatorTwo(divide);
+            assignOperator(divide);
     } else {
         if (storedOperator[storedOperator.length-1] !== 'string') {
             return;
@@ -94,7 +94,7 @@ function pushOperator(symbol) {
     storedOperator.push(symbol);
 }
 /*Function to populate screen with numbers from buttons*/
-function populateScreen(e) {
+function getAnswer(e) {//formerly populateScreen
     if (display[display.length-1] === '=' || display[display.length-1] === '!n') {
 		calcDisplay.textContent = '';
 	}
@@ -109,7 +109,7 @@ function populateScreen(e) {
 /*Button function to respond under certain conditions*/
 function numberBtn(e,a){
     if (e.target.textContent === a && typeof storedValue[storedValue.length-1] === 'string') {
-        populateScreen(e);
+        getAnswer(e);
     } else {
         if (e.target.textContent === a) {
             screen.textContent += e.target.textContent;
@@ -124,7 +124,7 @@ function numberBtn(e,a){
 function operatorAction(symbol) {
     calcDisplay.textContent += symbol;
     display.push(symbol);
-    getOperatorFunction();
+    getOperator();
     storedValue = [];
     pushOperator(symbol);
 }
@@ -177,7 +177,7 @@ function countScreenLength() {
 		setTimeout(function() {
 			let display = screenLength[screenLength.length-1];
 			screen.textContent = display;
-		}, 1500);
+		}, 500);
 	}
 }
 /*Operator function uses all the above function for its logic*/
@@ -207,7 +207,7 @@ function operator(e) {
 	} else if (e.target.value === '=') {
         calcDisplay.textContent += ' Answer ';
         display.push('=');
-        getOperatorFunction();
+        getOperator();
     }
     /*For floating number*/
     addDecimal(e);
