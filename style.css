@@ -30,8 +30,46 @@ main {
 }
 #power {
     width: 295px;
-    height: 40px;
+	height: 30px;
+	padding: 0px;
+	display: flex;
+	justify-content: space-between;
 }
+.fafa {
+	width: 20px;
+	height: 20px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin: 5px 0px 0px;
+	background-color: black;
+	border-radius: 50px;
+	box-shadow: 0px 0px 7px black;
+}
+#model {
+	margin: 6px 94px 0px 0px;
+	font-family: myFirstFont;
+	font-size: 1.5rem;
+	border-radius: 40px;
+	padding: 1px;
+	color: #6C8294;
+	text-shadow: 0px 0px 10px black;
+}
+.fa {
+	color: #1D5280;
+}
+.show {
+	color: #9DE8FF;
+}
+.show-start{
+	opacity: 1;
+	visibility: visible;
+}
+.screen2-toggle {
+	opacity: 0;
+	visibility: hidden;
+}
+
 #display-unit {
 	border: 2px solid  #2E2B32;
 	background-color: #2E2B32;
@@ -108,44 +146,46 @@ main {
 }
 .btn:hover {
     transform: scale(1.05);
-    background-color: grey;
+    background-color: #393939;
 }
 .btn {
-	border: 2px solid white;
-	width: 68px;
-	height: 68px;
+	border: 2px solid /*grey*/#2D333A;
+	width: 65px;
+	height: 45px;
 	box-sizing: border-box;
 	margin: 0px 0px;
 	border-radius: 50px;
-	background-color: grey;
-	color: white;
-	font-size: 2.5rem;
+	/*background-color: grey;*/
+	color: grey;
+	font-size: 2rem;
 	background-color: #2D333A;
 	cursor: pointer;
-	box-shadow: 0px 8px 8px black;
+	box-shadow: 0px 10px 10px black;
 	text-shadow: 5px 0px 5px black;
 }
+.btn-show {
+	color: #9DE8FF;
+}
 .btn-operator {
-	background-color: #7ECDD5;
-	color: black;
+	background-color: /*#7ECDD5*/#415962;
+	color: /*grey*/#002326;
 	border-color: #96E0FF;
 	border: 8px;
-	box-shadow: 0px 7px 0px black;
+	box-shadow: 0px 10px 10px black;
 }
 .btn-operator:hover {
-	background-color: #6DADE2;
+	background-color: #59809D;
 }
 .top {
-	background-color: #D9C0AF;
-	font-size: 1.2rem;
-	border-color: #FFACAD;
-	border: 2px solid;
+	background-color: #2E2B32;
+	font-size: 1rem;
+	border: 2px solid grey;
 	font-weight: bold;
-	box-shadow: 10px 0px 10px black;
-	color: #4A2223;
+	box-shadow: 0px 10px 10px black;
+	color: grey;
 }
 .top:hover {
-	background-color: #AF6496;
+	background-color: #230D00;
 }
 h1 {
 	margin: auto;
@@ -183,12 +223,15 @@ h1 {
 	padding: 0px;
 }
 #dot {
-	margin: auto;
-	font-size: 40px;
-	padding: 0px 0px 25px;
+	margin: 0px auto 1px;
+	font-size: 50px;
+	padding: 0px 0px 15px;
+	font-size: 2rem;
 }
 #negativeplus, #decimal {
 	background-color: #2E2B32;
 	border-color: grey;
 	text-align: center;
+	color: grey;
+	font-size: 2rem;
 }
