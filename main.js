@@ -191,7 +191,7 @@ function countScreenLength() {
 	}
 }
 /*This function clears the default zero once a number is entered*/
-function clearDefaultZero() {
+function clearDefaultZero(e) {
     if (zeroDefault.length > 0) {
         screen2.textContent = '';
     }
@@ -241,7 +241,7 @@ function operator(e) {
     addDecimal(e);
 
     /*Clear default zero*/
-    clearDefaultZero();
+    clearDefaultZero(e);
 
     /*Clears each digit on button click*/
     clearNumber(e);
