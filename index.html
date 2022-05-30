@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calculator</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
     <script src="main.js" defer></script>
 </head>
 <body>
@@ -21,10 +22,15 @@
                     </div>
                         
                     <div id="down-display">
-                        <span id="screen"><span id="screen"></span><span class="screen2-toggle" id="screen2">0</span></span>
+                        <span id="screen"><span id="screen1"></span><span class="screen2-toggle" id="screen2">0</span></span>
                     </div>
                 </div>
-                <div id="power"></div>
+                <div id="power">
+                    <button class="fafa">
+                        <i class="fa fa-power-off" style="font-size: 20px;"></i>
+                    </button>
+                    <span id="model">CALCULATOR</span>
+                </div>
             </div>
         
             <button id="backspace" class="btn btn-operator top">Delete</button>
