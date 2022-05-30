@@ -6,6 +6,7 @@ const numberButtons = buttonContainer.querySelectorAll('.btn');
 const btnOperator = buttonContainer.querySelectorAll('.btn-operator');
 const clearButton = buttonContainer.querySelector('#clear');
 const calcDisplay = document.querySelector('#calculator-display');
+const powerButton = document.querySelector('.fa');
 /*Variable declaration*/
 let storedValue = [];
 let storedOperator = [];
@@ -253,9 +254,22 @@ function clearAll() {
     }
 }
 
+function powerOffOn(e) {
+    numberButtons.forEach(btn => {
+        btn.classList.toggle('btn-show');
+    });
+    powerButton.classList.toggle('show');
+    screen2.classList.toggle('screen2-toggle');
+    if (e.target.className == 'fa fa-power-off show') {
+        buttonContainer.addEventListener('click', operator);
+    } else if (e.target.className == 'fa fa-power-off') {
+        buttonContainer.removeEventListener('click', operator);
+        clearAll();
+    }
+}
 
 /*Event listeners*/
-buttonContainer.addEventListener('click', operator);
+powerButton.addEventListener('click', powerOffOn);
 clearButton.addEventListener('click', () => {
     clearAll();
 });

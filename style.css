@@ -67,8 +67,8 @@ main {
 	visibility: visible;
 }
 .screen2-toggle {
-	opacity: 1;
-	visibility: visible;
+	opacity: 0;
+	visibility: hidden;
 }
 
 #display-unit {
