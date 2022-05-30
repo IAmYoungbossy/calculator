@@ -199,7 +199,7 @@ function operator(e) {
 		} else {
 			storedValue.push(parseFloat(screen.textContent));
 			screen.textContent = '';
-			result = findFactorial(storedValue[storedValue.length-1]);
+			result = findFactorial(parseInt(storedValue[storedValue.length-1]));
 			screen.textContent = result;
 			storedValue.push(parseFloat(screen.textContent));
 			storedValue.push('-');
