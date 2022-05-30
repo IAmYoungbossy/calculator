@@ -1,5 +1,6 @@
 /*Caching DOM*/
-const screen = document.querySelector('#screen');
+const screen = document.querySelector('#screen1');
+const screen2 = document.querySelector('#screen2');
 const buttonContainer = document.querySelector('.buttoncontainer');
 const numberButtons = buttonContainer.querySelectorAll('.btn');
 const btnOperator = buttonContainer.querySelectorAll('.btn-operator');
@@ -10,6 +11,7 @@ let storedValue = [];
 let storedOperator = [];
 let screenLength = [];
 let display = [];
+let zeroDefault = [];
 let result;
 let displayResult;
 let backspace;
@@ -115,6 +117,7 @@ function numberBtn(e,a){
             screen.textContent += e.target.textContent;
             calcDisplay.textContent += e.target.textContent;
             screenLength.push(screen.textContent);
+            zeroDefault.push(a)
             countScreenLength();
 
         }
@@ -142,6 +145,7 @@ function addDecimal(e) {
 			screen.textContent += e.target.textContent;
 			calcDisplay.textContent += e.target.textContent;
 		} else if (e.target.textContent === '.' && screen.textContent === '') {
+            zeroDefault.unshift('.');
 			screen.textContent = '0';
 			calcDisplay.textContent = '0';
 			screen.textContent += e.target.textContent;
@@ -153,6 +157,10 @@ function addDecimal(e) {
 function clearNumber(e) {
     if (e.target.textContent === 'Delete') {
 		screenLength.pop();
+        zeroDefault.pop();
+        if (zeroDefault.length < 1) {
+            screen2.textContent = '0';
+        }
 		backspace = [];
 		screenDisplay = []; //
 		backspace = [...screen.textContent+'']//.map(n=>+n)
@@ -210,8 +218,6 @@ function operator(e) {
         display.push('=');
         getOperator();
     }
-    /*For floating number*/
-    addDecimal(e);
 
     /*Button action*/
     let i = 0;
@@ -219,6 +225,17 @@ function operator(e) {
         numberBtn(e, `${i}`);
     }
     numberBtn(e, `${i}`);
+
+    /*For floating number*/
+    addDecimal(e);
+
+    if (zeroDefault.length > 0) {
+        screen2.textContent = '';
+    }
+    if (e.target.textContent === '.') {
+        zeroDefault.push('.')
+        screen2.textContent = '';
+    }
 
     /*Clears each digit on button click*/
     clearNumber(e);
@@ -231,4 +248,8 @@ clearButton.addEventListener('click', () => {
     storedValue = [];
     storedOperator = [];
     screenLength = [];
+    zeroDefault = [];
+    if (zeroDefault.length < 1) {
+        screen2.textContent = '0';
+    }
 });
