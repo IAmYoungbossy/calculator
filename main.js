@@ -65,7 +65,7 @@ function findFactorial(factorial) {
 	}
 }
 /*Function calls operator function*/
-function assignOperator(operate) {//formerly getOperatorTwo
+function assignOperator(operate) {
     storedValue.push(parseFloat(screen.textContent));
     screen.textContent = '';
     result = operate((storedValue[storedValue.length-2]), (storedValue[storedValue.length-1]));
@@ -75,7 +75,7 @@ function assignOperator(operate) {//formerly getOperatorTwo
     storedOperator = [];
 }
 /*Function to check operator type and assign type operator function*/
-function getOperator() {//formerly getOperatorFunction
+function getOperator() {
     if (storedOperator[storedOperator.length-1] === '+') {
             assignOperator(add);
     } else if (storedOperator[storedOperator.length-1] === '-') {
@@ -97,7 +97,7 @@ function pushOperator(symbol) {
     storedOperator.push(symbol);
 }
 /*Function to populate screen with numbers from buttons*/
-function getAnswer(e) {//formerly populateScreen
+function getAnswer(e) {
     if (display[display.length-1] === '=' || display[display.length-1] === '!n') {
 		calcDisplay.textContent = '';
 	}
@@ -163,22 +163,22 @@ function clearNumber(e) {
             screen2.textContent = '0';
         }
 		backspace = [];
-		screenDisplay = []; //
-		backspace = [...screen.textContent+'']//.map(n=>+n)
-		screenDisplay = [...calcDisplay.textContent+'']; //
+		screenDisplay = [];
+		backspace = [...screen.textContent+''];
+		screenDisplay = [...calcDisplay.textContent+''];
 		backspace.pop(backspace[backspace.length-1]);
-		screenDisplay.pop(screenDisplay[screenDisplay.length-1]); //
+		screenDisplay.pop(screenDisplay[screenDisplay.length-1]);
 		result = backspace.toString();
-		displayResult = screenDisplay.toString(); //
+		displayResult = screenDisplay.toString();
 		toString = result.replace(/,/g, '');
-		displayToStrings = displayResult.replace(/,/g, ''); //
+		displayToStrings = displayResult.replace(/,/g, '');
 		screen.textContent = '';
-		calcDisplay.textContent = ''; //
+		calcDisplay.textContent = '';
 		screen.textContent = toString;
 		calcDisplay.textContent = displayToStrings;
     }
 }
-
+/*This function makes sure total digits doesn't exceed 20*/
 function countScreenLength() {
 	if (screenLength.length > 20) {
 		screenLength.pop();
@@ -189,6 +189,16 @@ function countScreenLength() {
             calcDisplay.textContent = display;
 		}, 500);
 	}
+}
+/*This function clears the default zero once a number is entered*/
+function clearDefaultZero() {
+    if (zeroDefault.length > 0) {
+        screen2.textContent = '';
+    }
+    if (e.target.textContent === '.') {
+        zeroDefault.push('.')
+        screen2.textContent = '';
+    }
 }
 /*Operator function uses all the above function for its logic*/
 function operator(e) {
@@ -230,18 +240,13 @@ function operator(e) {
     /*For floating number*/
     addDecimal(e);
 
-    if (zeroDefault.length > 0) {
-        screen2.textContent = '';
-    }
-    if (e.target.textContent === '.') {
-        zeroDefault.push('.')
-        screen2.textContent = '';
-    }
+    /*Clear default zero*/
+    clearDefaultZero();
 
     /*Clears each digit on button click*/
     clearNumber(e);
 }
-
+/*This function clears everything on the screen*/
 function clearAll() {
     screen.textContent = '';
     calcDisplay.textContent = '';
@@ -253,7 +258,7 @@ function clearAll() {
         screen2.textContent = '0';
     }
 }
-
+/*Function when called toggles screen on and off*/
 function powerOffOn(e) {
     numberButtons.forEach(btn => {
         btn.classList.toggle('btn-show');
@@ -267,7 +272,6 @@ function powerOffOn(e) {
         clearAll();
     }
 }
-
 /*Event listeners*/
 powerButton.addEventListener('click', powerOffOn);
 clearButton.addEventListener('click', () => {
