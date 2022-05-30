@@ -15,18 +15,18 @@ body {
 	margin: 0px;
 	padding-bottom: 10px;
 	width: auto;
-	height: 60px;
+	height: 40px;
 	font-family: myFirstFont;
-	font-size: 1.8rem;
+	font-size: 1.2rem;
 	background-color: #3d324c;
-	color: rgb(144, 198, 247);
+	color: rgb(111, 131, 151);
 	border-bottom-left-radius: 15px;
 	border-bottom-right-radius: 15px;
 	box-shadow: 0px 0px 15px black;
 }
 
 main {
-    margin-top: 15px;
+    margin-top: 25px;
 }
 #power {
     width: 295px;
@@ -36,6 +36,7 @@ main {
 	justify-content: space-between;
 }
 .fafa {
+	cursor: pointer;
 	width: 20px;
 	height: 20px;
 	display: flex;
