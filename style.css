@@ -6,7 +6,10 @@ body {
     background-color: #2E2B32;
 	margin: 0px;
 	padding: 0px;
-	height: 100vh;
+	min-height: 100vh;
+	text-align: center;
+	display: flex;
+	flex-direction: column;
 }
 #header {
 	display: flex;
@@ -15,18 +18,18 @@ body {
 	margin: 0px;
 	padding-bottom: 10px;
 	width: auto;
-	height: 40px;
+	height: 30px;
 	font-family: myFirstFont;
 	font-size: 1.2rem;
-	background-color: #3d324c;
+	background-color: #2E2B32;
 	color: rgb(111, 131, 151);
 	border-bottom-left-radius: 15px;
 	border-bottom-right-radius: 15px;
-	box-shadow: 0px 0px 15px black;
+	box-shadow: 0px 0px 2px black;
 }
 
 main {
-    margin-top: 25px;
+    margin-top: 30px;
 }
 #power {
     width: 295px;
@@ -235,4 +238,8 @@ h1 {
 	text-align: center;
 	color: grey;
 	font-size: 2rem;
+}
+footer {
+	margin-top: auto;
+	color: wheat;
 }

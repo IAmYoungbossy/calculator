@@ -22,23 +22,23 @@ let displayToStrings;
 
 /*Operator Functions*/
 function add(a,b) {
-        return (a+b).toFixed(2);
+        return (a+b);
 }
 function subtract(a,b) {
-        return (a-b).toFixed(2);
+        return (a-b);
 }
 function multiply(a,b) {
-        return (a*b).toFixed(2);
+        return (a*b);
 }
 function divide(a,b) {
     if (b === 0) {
         return screen.textContent = 'Error!';
     } else {
-        return (a/b).toFixed(2);
+        return (a/b);
     }
 }
 function modulo(a,b) {
-		return (a%b).toFixed(2);
+		return (a%b);
 }
 /*Operator function uses all the functions for operation of the calculator*/
 function operator(e) {
