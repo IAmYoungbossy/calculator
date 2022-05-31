@@ -22,30 +22,30 @@ let displayToStrings;
 
 /*Operator Functions*/
 function add(a,b) {
-        return a+b;
+        return (a+b).toFixed(2);
 }
 function subtract(a,b) {
-        return a-b;
+        return (a-b).toFixed(2);
 }
 function multiply(a,b) {
-        return a*b;
+        return (a*b).toFixed(2);
 }
 function divide(a,b) {
     if (b === 0) {
         return screen.textContent = 'Error!';
     } else {
-        return a/b;
+        return (a/b).toFixed(2);
     }
 }
 function modulo(a,b) {
-		return a%b;
+		return (a%b).toFixed(2);
 }
 /*Operator function uses all the functions for operation of the calculator*/
 function operator(e) {
-    /*Assigns operator function depending on your entry*/
+    /*Assigns operator functions depending on your entry*/
     calculate(e.target.value);
 
-    /*Button action*/
+    /*This takes value of the number button for calculation*/
     let i = 0;
     for(; i < 10; i++){
         numberBtn(e.target.value, `${i}`);
@@ -61,12 +61,12 @@ function operator(e) {
     /*Clears each digit on button click*/
     clearNumber(e.target.value);
 }
-/*This same function as above but for keyboard support*/
+/*This is same function as above but for keyboard support*/
 function operatorKey(e) {
     /*Assigns operator function depending on your entry*/
     calculate(e.key);
 
-    /*Button action*/
+    /*This takes value of the keybord number keys for calculation*/
     let i = 0;
     for(; i < 10; i++){
         numberBtn(e.key, `${i}`);
@@ -143,17 +143,17 @@ function assignOperator(operate) {
     storedValue.push('clear');
     storedOperator = [];
 }
-/*Function push screen display number and operator type to array*/
+/*Function pushes screen display number and operator type to array*/
 function pushOperator(symbol) {
     storedValue.push(parseFloat(screen.textContent));
     storedValue.push(symbol);
     storedOperator.push(symbol);
 }
-/*Button function to respond under certain conditions*/
+/*Button function gets value of the number button or keyboard value for calculation*/
 function numberBtn(target,a){
     if (target === a && typeof storedValue[storedValue.length-1] === 'string') {
-        getAnswer(target);
-    } else {
+        clearScreen(target);
+    } else {//The variable 'a' represents the entered number.
         if (target === a) {
             screen.textContent += target;
             calcDisplay.textContent += target;
@@ -164,7 +164,7 @@ function numberBtn(target,a){
         }
     }
 }
-/*This function makes sure total digits doesn't exceed 20*/
+/*This function makes sure total digits doesn't exceed 20 on the result screen*/
 function countScreenLength() {
 	if (screenLength.length > 20) {
 		screenLength.pop();
@@ -176,9 +176,9 @@ function countScreenLength() {
 		}, 500);
 	}
 }
-/*Function to populate screen with numbers from buttons*/
-function getAnswer(target) {
-    if (display[display.length-1] === '=' || display[display.length-1] === '!n') {
+/*This function clears the screen for new calculation once '=' or '%' has been used*/
+function clearScreen(target) {
+    if (display[display.length-1] === '=' || display[display.length-1] === '%') {
 		calcDisplay.textContent = '';
 	}
     display.pop();
@@ -189,7 +189,7 @@ function getAnswer(target) {
     screenLength.push(screen.textContent);
 	countScreenLength();
 }
-/*For operating numbers with decimals*/
+/*Function makes sure once a decimal is already in a number it can't be entered again*/
 function addDecimal(target) {
     if (target === '.' && typeof storedValue[storedValue.length-1] === 'string') {
 		screen.textContent = '0';
@@ -245,7 +245,7 @@ function clearNumber(target) {
 		calcDisplay.textContent = displayToStrings;
     }
 }
-/*This function clears everything on the screen*/
+/*This function clears everything on the screen and stored numbers in arrays*/
 function clearAll() {
     screen.textContent = '';
     calcDisplay.textContent = '';
