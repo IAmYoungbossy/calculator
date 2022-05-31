@@ -22,30 +22,16 @@ let displayToStrings;
 
 /*Operator Functions*/
 function add(a,b) {
-    if (Number.isFinite(parseFloat(a)) === false || Number.isFinite(parseFloat(b)) === false) {
-        return screen.textContent = storedValue[0];
-    } else {
         return a+b;
-    }
 }
 function subtract(a,b) {
-    if (Number.isFinite(parseFloat(a)) === false || Number.isFinite(parseFloat(b)) === false) {
-        return screen.textContent = storedValue[0];
-    } else {
         return a-b;
-    }
 }
 function multiply(a,b) {
-    if (Number.isFinite(parseFloat(a)) === false || Number.isFinite(parseFloat(b)) === false) {
-        return screen.textContent = storedValue[0];
-    } else {
         return a*b;
-    }
 }
 function divide(a,b) {
-    if (Number.isFinite(parseFloat(a)) === false || Number.isFinite(parseFloat(b)) === false) {
-        return screen.textContent = storedValue[0];
-    } else if (b === 0) {
+    if (b === 0) {
         return screen.textContent = 'Error!';
     } else {
         return a/b;
@@ -53,10 +39,8 @@ function divide(a,b) {
 }
 function findFactorial(factorial) {
     let multiply = 1;
-	if ((factorial > 150) || (Number.isFinite(factorial) === false)) {
+	if (factorial > 150) {
 		return screen.textContent = 'Large Number';
-	} else if (typeof factorial !== 'number') {
-		return screen.textContent = storedValue[0];
 	} else {
 		for (; factorial !== 0; factorial--) {
 			multiply *= factorial;
@@ -80,7 +64,7 @@ function operator(e) {
         calcDisplay.textContent += ' !n ';
 		display.push('!n');
 		if (screen.textContent === 'Infinity' || screen.textContent === 'Large Number' || screen.textContent === 'Syntax Error' || screen.textContent === 'NaN') {
-			return screen.textContent = 'Syntax Error';
+			screen.textContent = 'Syntax Error';
 		} else {
 			storedValue.push(parseFloat(screen.textContent));
 			screen.textContent = '';
