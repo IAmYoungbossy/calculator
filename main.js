@@ -45,10 +45,9 @@ function findFactorial(factorial) {
 		for (; factorial !== 0; factorial--) {
 			multiply *= factorial;
 		}
-		return ((multiply)*10)/10;
+		return (multiply);
 	}
 }
-
 /*Operator function uses all the above function for its logic*/
 function operator(e) {
     /*Condition for calling operators*/
@@ -71,9 +70,16 @@ function operator(e) {
 			result = findFactorial(parseInt(storedValue[storedValue.length-1]));
 			screen.textContent = result;
 			storedValue.push(parseFloat(screen.textContent));
-			storedValue.push('-');
+			storedValue.push('clear');
 		}
-	} else if (e.target.value === '=') {
+	} else if (e.target.textContent === '-/+') {
+        storedValue.push(parseFloat(screen.textContent));
+			screen.textContent = '';
+			result = (storedValue[storedValue.length-1])*-1;
+			screen.textContent = result;
+            calcDisplay.textContent = result;
+			storedValue.push(parseFloat(screen.textContent));
+    } else if (e.target.value === '=') {
         calcDisplay.textContent += ' Answer ';
         display.push('=');
         getOperator();
@@ -154,7 +160,6 @@ function numberBtn(e,a){
         }
     }
 }
-
 /*This function makes sure total digits doesn't exceed 20*/
 function countScreenLength() {
 	if (screenLength.length > 20) {
@@ -167,7 +172,6 @@ function countScreenLength() {
 		}, 500);
 	}
 }
-
 /*Function to populate screen with numbers from buttons*/
 function getAnswer(e) {
     if (display[display.length-1] === '=' || display[display.length-1] === '!n') {
@@ -181,7 +185,6 @@ function getAnswer(e) {
     screenLength.push(screen.textContent);
 	countScreenLength();
 }
-
 /*For operating numbers with decimals*/
 function addDecimal(e) {
     if (e.target.textContent === '.' && typeof storedValue[storedValue.length-1] === 'string') {
@@ -214,7 +217,6 @@ function clearDefaultZero(e) {
         screen2.textContent = '';
     }
 }
-
 /*Backspace function to clear each number*/
 function clearNumber(e) {
     if (e.target.textContent === 'Delete') {
