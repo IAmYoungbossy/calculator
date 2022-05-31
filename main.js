@@ -43,50 +43,70 @@ function modulo(a,b) {
 /*Operator function uses all the functions for operation of the calculator*/
 function operator(e) {
     /*Assigns operator function depending on your entry*/
-    calculate(e);
+    calculate(e.target.value);
 
     /*Button action*/
     let i = 0;
     for(; i < 10; i++){
-        numberBtn(e, `${i}`);
+        numberBtn(e.target.value, `${i}`);
     }
-    numberBtn(e, `${i}`);
+    numberBtn(e.target.value, `${i}`);
 
     /*For floating number*/
-    addDecimal(e);
+    addDecimal(e.target.value);
 
     /*Clears default zero*/
-    clearDefaultZero(e);
+    clearDefaultZero(e.target.value);
 
     /*Clears each digit on button click*/
-    clearNumber(e);
+    clearNumber(e.target.value);
+}
+/*This same function as above but for keyboard support*/
+function operatorKey(e) {
+    /*Assigns operator function depending on your entry*/
+    calculate(e.key);
+
+    /*Button action*/
+    let i = 0;
+    for(; i < 10; i++){
+        numberBtn(e.key, `${i}`);
+    }
+    numberBtn(e.key, `${i}`);
+
+    /*For floating number*/
+    addDecimal(e.key);
+
+    /*Clears default zero*/
+    clearDefaultZero(e.key);
+
+    /*Clears each digit on button click*/
+    clearNumber(e.key);
 }
 /*function assigns operator functions for calculation*/
-function calculate(e) {
+function calculate(target) {
     /*Condition for calling operators*/
-    if (e.key === '-') {
+    if (target === '-') {
         operatorAction('-');
-    } else if (e.key === '+') {
+    } else if (target === '+') {
         operatorAction('+');
-    } else if (e.key === '/') {
+    } else if (target === '/') {
         operatorAction('÷');
-    } else if (e.key === '*') {
+    } else if (target === '*') {
         operatorAction('×');
-    } else if (e.key === '%') {
+    } else if (target === '%') {
         operatorAction('%');
-	} else if (e.key === '~') {
+	} else if (target === '~') {
         storedValue.push(parseFloat(screen.textContent));
 		screen.textContent = '';
 		result = (storedValue[storedValue.length-1])*-1;
 		screen.textContent = result;
         calcDisplay.textContent = result;
-    } else if (e.key === '=') {
+    } else if (target === '=') {
         calcDisplay.textContent += ' Answer ';
         display.push('=');
         getOperator();
     }
 }
-
 /*This is just to remove repeated code*/
 function operatorAction(symbol) {
     calcDisplay.textContent += symbol;
@@ -95,7 +115,6 @@ function operatorAction(symbol) {
     storedValue = [];
     pushOperator(symbol);
 }
-
 /*Function to check operator type and assign type operator function*/
 function getOperator() {
     if (storedOperator[storedOperator.length-1] === '+') {
@@ -124,22 +143,20 @@ function assignOperator(operate) {
     storedValue.push('clear');
     storedOperator = [];
 }
-
 /*Function push screen display number and operator type to array*/
 function pushOperator(symbol) {
     storedValue.push(parseFloat(screen.textContent));
     storedValue.push(symbol);
     storedOperator.push(symbol);
 }
-
 /*Button function to respond under certain conditions*/
-function numberBtn(e,a){
-    if (e.key === a && typeof storedValue[storedValue.length-1] === 'string') {
-        getAnswer(e);
+function numberBtn(target,a){
+    if (target === a && typeof storedValue[storedValue.length-1] === 'string') {
+        getAnswer(target);
     } else {
-        if (e.key === a) {
-            screen.textContent += e.key;
-            calcDisplay.textContent += e.key;
+        if (target === a) {
+            screen.textContent += target;
+            calcDisplay.textContent += target;
             screenLength.push(screen.textContent);
             zeroDefault.push(a)
             countScreenLength();
@@ -160,53 +177,53 @@ function countScreenLength() {
 	}
 }
 /*Function to populate screen with numbers from buttons*/
-function getAnswer(e) {
+function getAnswer(target) {
     if (display[display.length-1] === '=' || display[display.length-1] === '!n') {
 		calcDisplay.textContent = '';
 	}
     display.pop();
     screen.textContent = '';
     storedValue.pop();
-    screen.textContent += e.key;
-    calcDisplay.textContent += e.key;
+    screen.textContent += target;
+    calcDisplay.textContent += target;
     screenLength.push(screen.textContent);
 	countScreenLength();
 }
 /*For operating numbers with decimals*/
-function addDecimal(e) {
-    if (e.key === '.' && typeof storedValue[storedValue.length-1] === 'string') {
+function addDecimal(target) {
+    if (target === '.' && typeof storedValue[storedValue.length-1] === 'string') {
 		screen.textContent = '0';
 		storedValue.pop();
-		screen.textContent += e.key;
-		calcDisplay.textContent += e.key;
-	} else if (e.key === '.' && (screen.textContent).indexOf('.') >= 0) {
+		screen.textContent += target;
+		calcDisplay.textContent += target;
+	} else if (target === '.' && (screen.textContent).indexOf('.') >= 0) {
 		return;
 	} else {
-		if (e.key === '.' && screen.textContent !== '') {
-			screen.textContent += e.key;
-			calcDisplay.textContent += e.key;
-		} else if (e.key === '.' && screen.textContent === '') {
+		if (target === '.' && screen.textContent !== '') {
+			screen.textContent += target;
+			calcDisplay.textContent += target;
+		} else if (target === '.' && screen.textContent === '') {
             zeroDefault.unshift('.');
 			screen.textContent = '0';
 			calcDisplay.textContent = '0';
-			screen.textContent += e.key;
-			calcDisplay.textContent += e.key;
+			screen.textContent += target;
+			calcDisplay.textContent += target;
 		}
 	}
 }
 /*This function clears the default zero once a number is entered*/
-function clearDefaultZero(e) {
+function clearDefaultZero(target) {
     if (zeroDefault.length > 0) {
         screen2.textContent = '';
     }
-    if (e.key === '.') {
+    if (target === '.') {
         zeroDefault.push('.')
         screen2.textContent = '';
     }
 }
 /*Backspace function to clear each number*/
-function clearNumber(e) {
-    if (e.key === 'Delete') {
+function clearNumber(target) {
+    if (target === 'Delete') {
 		screenLength.pop();
         zeroDefault.pop();
         if (zeroDefault.length < 1) {
@@ -248,8 +265,8 @@ function powerOffOn(e) {
     powerButton.classList.toggle('show');
     screen2.classList.toggle('screen2-toggle');
     if (e.target.className == 'fa fa-power-off show') {
-        //buttonContainer.addEventListener('click', operator);
-        window.addEventListener('keypress', operator);
+        buttonContainer.addEventListener('click', operator);
+        window.addEventListener('keypress', operatorKey);
     } else if (e.target.className == 'fa fa-power-off') {
         buttonContainer.removeEventListener('click', operator);
         clearAll();
