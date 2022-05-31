@@ -64,23 +64,23 @@ function operator(e) {
 /*function assigns operator functions for calculation*/
 function calculate(e) {
     /*Condition for calling operators*/
-    if (e.target.value === '-') {
+    if (e.key === '-') {
         operatorAction('-');
-    } else if (e.target.value === '+') {
+    } else if (e.key === '+') {
         operatorAction('+');
-    } else if (e.target.value === '/') {
+    } else if (e.key === '/') {
         operatorAction('÷');
-    } else if (e.target.value === '*') {
+    } else if (e.key === '*') {
         operatorAction('×');
-    } else if (e.target.value === '%') {
+    } else if (e.key === '%') {
         operatorAction('%');
-	} else if (e.target.value === '~') {
+	} else if (e.key === '~') {
         storedValue.push(parseFloat(screen.textContent));
 		screen.textContent = '';
 		result = (storedValue[storedValue.length-1])*-1;
 		screen.textContent = result;
         calcDisplay.textContent = result;
-    } else if (e.target.value === '=') {
+    } else if (e.key === '=') {
         calcDisplay.textContent += ' Answer ';
         display.push('=');
         getOperator();
@@ -134,12 +134,12 @@ function pushOperator(symbol) {
 
 /*Button function to respond under certain conditions*/
 function numberBtn(e,a){
-    if (e.target.textContent === a && typeof storedValue[storedValue.length-1] === 'string') {
+    if (e.key === a && typeof storedValue[storedValue.length-1] === 'string') {
         getAnswer(e);
     } else {
-        if (e.target.textContent === a) {
-            screen.textContent += e.target.textContent;
-            calcDisplay.textContent += e.target.textContent;
+        if (e.key === a) {
+            screen.textContent += e.key;
+            calcDisplay.textContent += e.key;
             screenLength.push(screen.textContent);
             zeroDefault.push(a)
             countScreenLength();
@@ -167,30 +167,30 @@ function getAnswer(e) {
     display.pop();
     screen.textContent = '';
     storedValue.pop();
-    screen.textContent += e.target.textContent;
-    calcDisplay.textContent += e.target.textContent;
+    screen.textContent += e.key;
+    calcDisplay.textContent += e.key;
     screenLength.push(screen.textContent);
 	countScreenLength();
 }
 /*For operating numbers with decimals*/
 function addDecimal(e) {
-    if (e.target.textContent === '.' && typeof storedValue[storedValue.length-1] === 'string') {
+    if (e.key === '.' && typeof storedValue[storedValue.length-1] === 'string') {
 		screen.textContent = '0';
 		storedValue.pop();
-		screen.textContent += e.target.textContent;
-		calcDisplay.textContent += e.target.textContent;
-	} else if (e.target.textContent === '.' && (screen.textContent).indexOf('.') >= 0) {
+		screen.textContent += e.key;
+		calcDisplay.textContent += e.key;
+	} else if (e.key === '.' && (screen.textContent).indexOf('.') >= 0) {
 		return;
 	} else {
-		if (e.target.textContent === '.' && screen.textContent !== '') {
-			screen.textContent += e.target.textContent;
-			calcDisplay.textContent += e.target.textContent;
-		} else if (e.target.textContent === '.' && screen.textContent === '') {
+		if (e.key === '.' && screen.textContent !== '') {
+			screen.textContent += e.key;
+			calcDisplay.textContent += e.key;
+		} else if (e.key === '.' && screen.textContent === '') {
             zeroDefault.unshift('.');
 			screen.textContent = '0';
 			calcDisplay.textContent = '0';
-			screen.textContent += e.target.textContent;
-			calcDisplay.textContent += e.target.textContent;
+			screen.textContent += e.key;
+			calcDisplay.textContent += e.key;
 		}
 	}
 }
@@ -199,14 +199,14 @@ function clearDefaultZero(e) {
     if (zeroDefault.length > 0) {
         screen2.textContent = '';
     }
-    if (e.target.textContent === '.') {
+    if (e.key === '.') {
         zeroDefault.push('.')
         screen2.textContent = '';
     }
 }
 /*Backspace function to clear each number*/
 function clearNumber(e) {
-    if (e.target.textContent === 'Delete') {
+    if (e.key === 'Delete') {
 		screenLength.pop();
         zeroDefault.pop();
         if (zeroDefault.length < 1) {
@@ -248,7 +248,8 @@ function powerOffOn(e) {
     powerButton.classList.toggle('show');
     screen2.classList.toggle('screen2-toggle');
     if (e.target.className == 'fa fa-power-off show') {
-        buttonContainer.addEventListener('click', operator);
+        //buttonContainer.addEventListener('click', operator);
+        window.addEventListener('keypress', operator);
     } else if (e.target.className == 'fa fa-power-off') {
         buttonContainer.removeEventListener('click', operator);
         clearAll();
