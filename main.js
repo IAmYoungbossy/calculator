@@ -37,16 +37,8 @@ function divide(a,b) {
         return a/b;
     }
 }
-function findFactorial(factorial) {
-    let multiply = 1;
-	if (factorial > 150) {
-		return screen.textContent = 'Large Number';
-	} else {
-		for (; factorial !== 0; factorial--) {
-			multiply *= factorial;
-		}
-		return (multiply);
-	}
+function modulo(a,b) {
+		return a%b;
 }
 /*Operator function uses all the functions for operation of the calculator*/
 function operator(e) {
@@ -80,26 +72,14 @@ function calculate(e) {
         operatorAction('÷');
     } else if (e.target.value === '*') {
         operatorAction('×');
-    } else if (e.target.value === '!') {
-        calcDisplay.textContent += ' !n ';
-		display.push('!n');
-		if (screen.textContent === 'Infinity' || screen.textContent === 'Large Number' || screen.textContent === 'Syntax Error' || screen.textContent === 'NaN') {
-			screen.textContent = 'Syntax Error';
-		} else {
-			storedValue.push(parseFloat(screen.textContent));
-			screen.textContent = '';
-			result = findFactorial(parseInt(storedValue[storedValue.length-1]));
-			screen.textContent = result;
-			storedValue.push(parseFloat(screen.textContent));
-			storedValue.push('clear');
-		}
+    } else if (e.target.value === '%') {
+        operatorAction('%');
 	} else if (e.target.value === '~') {
         storedValue.push(parseFloat(screen.textContent));
-			screen.textContent = '';
-			result = (storedValue[storedValue.length-1])*-1;
-			screen.textContent = result;
-            calcDisplay.textContent = result;
-			storedValue.push(parseFloat(screen.textContent));
+		screen.textContent = '';
+		result = (storedValue[storedValue.length-1])*-1;
+		screen.textContent = result;
+        calcDisplay.textContent = result;
     } else if (e.target.value === '=') {
         calcDisplay.textContent += ' Answer ';
         display.push('=');
@@ -126,6 +106,8 @@ function getOperator() {
             assignOperator(multiply);
     } else if (storedOperator[storedOperator.length-1] === '÷') {
             assignOperator(divide);
+    } else if (storedOperator[storedOperator.length-1] === '%') {
+            assignOperator(modulo);
     } else {
         if (storedOperator[storedOperator.length-1] !== 'string') {
             return;
