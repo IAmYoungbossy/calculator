@@ -48,42 +48,10 @@ function findFactorial(factorial) {
 		return (multiply);
 	}
 }
-/*Operator function uses all the above function for its logic*/
+/*Operator function uses all the functions for operation of the calculator*/
 function operator(e) {
-    /*Condition for calling operators*/
-    if (e.target.value === '-') {
-        operatorAction('-');
-    } else if (e.target.value === '+') {
-        operatorAction('+');
-    } else if (e.target.value === '÷') {
-        operatorAction('÷');
-    } else if (e.target.value === '×') {
-        operatorAction('×');
-    } else if (e.target.value === '!n') {
-        calcDisplay.textContent += ' !n ';
-		display.push('!n');
-		if (screen.textContent === 'Infinity' || screen.textContent === 'Large Number' || screen.textContent === 'Syntax Error' || screen.textContent === 'NaN') {
-			screen.textContent = 'Syntax Error';
-		} else {
-			storedValue.push(parseFloat(screen.textContent));
-			screen.textContent = '';
-			result = findFactorial(parseInt(storedValue[storedValue.length-1]));
-			screen.textContent = result;
-			storedValue.push(parseFloat(screen.textContent));
-			storedValue.push('clear');
-		}
-	} else if (e.target.textContent === '-/+') {
-        storedValue.push(parseFloat(screen.textContent));
-			screen.textContent = '';
-			result = (storedValue[storedValue.length-1])*-1;
-			screen.textContent = result;
-            calcDisplay.textContent = result;
-			storedValue.push(parseFloat(screen.textContent));
-    } else if (e.target.value === '=') {
-        calcDisplay.textContent += ' Answer ';
-        display.push('=');
-        getOperator();
-    }
+    /*Assigns operator function depending on your entry*/
+    calculate(e);
 
     /*Button action*/
     let i = 0;
@@ -100,6 +68,43 @@ function operator(e) {
 
     /*Clears each digit on button click*/
     clearNumber(e);
+}
+/*function assigns operator functions for calculation*/
+function calculate(e) {
+    /*Condition for calling operators*/
+    if (e.target.value === '-') {
+        operatorAction('-');
+    } else if (e.target.value === '+') {
+        operatorAction('+');
+    } else if (e.target.value === '/') {
+        operatorAction('÷');
+    } else if (e.target.value === '*') {
+        operatorAction('×');
+    } else if (e.target.value === '!') {
+        calcDisplay.textContent += ' !n ';
+		display.push('!n');
+		if (screen.textContent === 'Infinity' || screen.textContent === 'Large Number' || screen.textContent === 'Syntax Error' || screen.textContent === 'NaN') {
+			screen.textContent = 'Syntax Error';
+		} else {
+			storedValue.push(parseFloat(screen.textContent));
+			screen.textContent = '';
+			result = findFactorial(parseInt(storedValue[storedValue.length-1]));
+			screen.textContent = result;
+			storedValue.push(parseFloat(screen.textContent));
+			storedValue.push('clear');
+		}
+	} else if (e.target.value === '~') {
+        storedValue.push(parseFloat(screen.textContent));
+			screen.textContent = '';
+			result = (storedValue[storedValue.length-1])*-1;
+			screen.textContent = result;
+            calcDisplay.textContent = result;
+			storedValue.push(parseFloat(screen.textContent));
+    } else if (e.target.value === '=') {
+        calcDisplay.textContent += ' Answer ';
+        display.push('=');
+        getOperator();
+    }
 }
 
 /*This is just to remove repeated code*/
@@ -253,7 +258,7 @@ function clearAll() {
         screen2.textContent = '0';
     }
 }
-/*Function when called toggles screen on and off*/
+/*Function toggles screen and calculator on and off*/
 function powerOffOn(e) {
     numberButtons.forEach(btn => {
         btn.classList.toggle('btn-show');
