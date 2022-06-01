@@ -21,7 +21,6 @@ function divide(a,b) {
     if (b === 0) return screen.textContent = 'Error!';
     else return (a/b);
 }
-
 /*Operator function uses all the functions for operation of the calculator*/
 function operator(e) {
         calculate(e.target.value);
@@ -30,7 +29,7 @@ function operator(e) {
         clearDefaultZero(e.target.value);
         clearNumber(e.target.value);
 }
-/*This is same function as above but for keyboard support*/
+/*This is same function as above but for keyboard*/
 function operatorKey(e) {
         calculate(e.key);
         for(let i = 0; i < 10; i++) numberBtn(e.key, `${i}`);
@@ -38,10 +37,9 @@ function operatorKey(e) {
         clearDefaultZero(e.key);
         clearNumber(e.key);
 }
-
-/*function assigns operator functions for calculation*/
+/*Assigns math functions for calculation*/
 function calculate(target) {
-    /*Condition for calling operators*/
+    /*Condition for calling math functions*/
     if (target === '-') operatorAction('-');
      else if (target === '+') operatorAction('+');
      else if (target === '/') operatorAction('÷');
@@ -58,7 +56,7 @@ function calculate(target) {
         getOperator();
     }
 }
-/*This is just to remove repeated code*/
+/*This is just to remove repeated code from calculate() function*/
 function operatorAction(symbol) {
     calcDisplay.textContent += symbol;
     display.push(symbol);
@@ -66,7 +64,7 @@ function operatorAction(symbol) {
     storedValue = [];
     pushOperator(symbol);
 }
-/*Function to check operator type and assign type operator function*/
+/*Function to check operator type and assign appropriate math function*/
 function getOperator() {
     (storedOperator[storedOperator.length-1] === '+')? assignOperator(add):
     (storedOperator[storedOperator.length-1] === '-')? assignOperator(subtract):
@@ -74,7 +72,7 @@ function getOperator() {
     (storedOperator[storedOperator.length-1] === '÷')? assignOperator(divide):
     (storedOperator[storedOperator.length-1] === '%')? assignOperator(modulo): false;
 }
-/*Function calls operator function*/
+/*This function applies the math function and returns result to screen*/
 function assignOperator(operate) {
     storedValue.push(parseFloat(screen.textContent));
     screen.textContent = operate((storedValue[storedValue.length-2]),(storedValue[storedValue.length-1]));
@@ -82,7 +80,7 @@ function assignOperator(operate) {
     storedValue.push('clear');
     storedOperator = [];
 }
-/*Function pushes screen display number and operator type to array*/
+/*Function pushes screen display number and operator type to their respective array*/
 function pushOperator(symbol) {
     storedValue.push(parseFloat(screen.textContent));
     storedValue.push(symbol);
@@ -111,7 +109,7 @@ function countScreenLength() {
 		}, 500);
 	}
 }
-/*This function clears the screen for new calculation once '=' or '%' has been used*/
+/*This function clears the screen for new calculation once '=' has been used*/
 function clearScreen(target) {
     if (display[display.length-1] === '=') calcDisplay.textContent = '';
     display.pop();
@@ -167,23 +165,19 @@ function clearNumber(target) {
 		displayResult = screenDisplay.toString();
 		toString = result.replace(/,/g, '');
 		displayToStrings = displayResult.replace(/,/g, '');
-		screen.textContent = '';
-		calcDisplay.textContent = '';
+		screen.textContent = calcDisplay.textContent = '';
 		screen.textContent = toString;
 		calcDisplay.textContent = displayToStrings;
     }
 }
 /*This function clears everything on the screen and stored numbers in arrays*/
 function clearAll() {
-    screen.textContent = '';
-    calcDisplay.textContent = '';
+    screen.textContent = calcDisplay.textContent = '';
     storedValue = [];
     storedOperator = [];
     screenLength = [];
     zeroDefault = [];
-    if (zeroDefault.length < 1) {
-        screen2.textContent = '0';
-    }
+    if (zeroDefault.length < 1) screen2.textContent = '0';
 }
 /*Function toggles screen and calculator on and off*/
 function powerOffOn(e) {
