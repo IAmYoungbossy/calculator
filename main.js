@@ -3,14 +3,12 @@ const screen = document.querySelector('#screen1');
 const screen2 = document.querySelector('#screen2');
 const buttonContainer = document.querySelector('.buttoncontainer');
 const numberButtons = buttonContainer.querySelectorAll('.btn');
-const btnOperator = buttonContainer.querySelectorAll('.btn-operator');
 const clearButton = buttonContainer.querySelector('#clear');
 const calcDisplay = document.querySelector('#calculator-display');
 const powerButton = document.querySelector('.fa');
 /*Variable declaration*/
 let storedValue = [], storedOperator = [], screenLength = [],
-display = [], zeroDefault = [], result, displayResult,
-backspace, screenDisplay, toStrings, displayToStrings;
+display = [], zeroDefault = [], backspace, screenDisplay;
 
 /*Math Functions*/
 function math(a,b,answer){
@@ -154,8 +152,7 @@ function clearNumber(target) {
 		screenLength.pop(), zeroDefault.pop();
         if (zeroDefault.length < 1) screen2.textContent = '0';
 		backspace = [], screenDisplay = [];
-		backspace = [...screen.textContent+''];
-		screenDisplay = [...calcDisplay.textContent+''];
+		backspace = [...screen.textContent+''], screenDisplay = [...calcDisplay.textContent+''];
 		backspace.pop(), screenDisplay.pop();
 		screen.textContent = calcDisplay.textContent = '';
 		screen.textContent = backspace.toString().replace(/,/g, '');
