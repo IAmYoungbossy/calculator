@@ -114,7 +114,7 @@ function countScreenLength() {
 		screenLength.pop();
 		screen.textContent = 'Large Number';
 		setTimeout(function() {
-			let display = screenLength[screenLength.length-1];
+			let display = screenLength.toString().replace(/,/g, '');
 			screen.textContent = display, calcDisplay.textContent = display;
 		}, 500);
 	}
