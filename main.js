@@ -150,7 +150,7 @@ function clearDefaultZero(target) {
 function clearNumber(target) {
     if (target === 'Delete') {
 		screenLength.pop(), zeroDefault.pop();
-        if (zeroDefault.length < 1) screen2.textContent = '0';
+        if (zeroDefault.length < 1 || screenLength.length < 1) screen2.textContent = '0';
 		backspace = [], screenDisplay = [];
 		backspace = [...screen.textContent+''], screenDisplay = [...calcDisplay.textContent+''];
 		backspace.pop(), screenDisplay.pop();
