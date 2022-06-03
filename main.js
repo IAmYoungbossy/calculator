@@ -8,7 +8,7 @@ const calcDisplay = document.querySelector('#calculator-display');
 const powerButton = document.querySelector('.fa');
 /*Variable declaration*/
 let storedValue = [], storedOperator = [], screenLength = [],
-display = [], zeroDefault = [], backspace, screenDisplay;
+display = [], zeroDefault = [], backspace = [], screenDisplay;
 
 /*Math Functions*/
 function math(a,b,answer){
@@ -53,8 +53,10 @@ function calculate(target) {
         storedValue.pop();
     } else if (target === '=') {
         calcDisplay.textContent += ' Answer ';
+        backspace = [];
         display.push('=');
         getOperator();
+        backspace.push(parseFloat(screen.textContent));
     }
 }
 /*This is just to remove repeated code from calculate() function*/
@@ -64,6 +66,11 @@ function operatorAction(symbol) {
     getOperator();
     storedValue = [];
     pushOperator(symbol);
+    if (typeof (backspace[backspace.length-1]) === 'string'){
+        backspace.pop();
+        backspace.push(symbol);
+        calcDisplay.textContent = backspace.toString().replace(/,/g, '');
+    } else backspace.push(symbol);
 }
 /*Function to check operator type and assign appropriate math function*/
 function getOperator() {
@@ -92,10 +99,11 @@ function pushOperator(symbol) {
 }
 /*Button function gets value of the number button or keyboard value for calculation*/
 function numberBtn(target,number){
-    if (target === number && typeof storedValue[storedValue.length-1] === 'string') clearScreen(target);
+    if (target === number && typeof storedValue[storedValue.length-1] === 'string')
+    clearScreen(target), backspace.push(parseInt(number));
     else if (target === number) {
     screen.textContent += target, calcDisplay.textContent += target;
-    screenLength.push(screen.textContent);
+    screenLength.push(number), backspace.push(parseInt(number));
     zeroDefault.push(number)
     countScreenLength();
     }
@@ -152,7 +160,7 @@ function clearNumber(target) {
 		screenLength.pop(), zeroDefault.pop();
         if (zeroDefault.length < 1 || screenLength.length < 1) screen2.textContent = '0';
 		backspace = [], screenDisplay = [];
-		backspace = [...screen.textContent+''], screenDisplay = [...calcDisplay.textContent+''];
+		backspace = [...screen.textContent], screenDisplay = [...calcDisplay.textContent];
 		backspace.pop(), screenDisplay.pop();
 		screen.textContent = calcDisplay.textContent = '';
 		screen.textContent = backspace.toString().replace(/,/g, '');
@@ -180,6 +188,4 @@ function powerOffOn(e) {
 }
 /*Event listeners*/
 powerButton.addEventListener('click', powerOffOn);
-clearButton.addEventListener('click', () => {
-    clearAll();
-});
+clearButton.addEventListener('click', () => clearAll());
