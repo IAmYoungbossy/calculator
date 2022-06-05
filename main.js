@@ -49,24 +49,23 @@ function operatorKey(e) {
 }
 /*Assigns math functions for calculation*/
 function calculate(target) {
-    /*Condition for calling math functions*/
-    if (target === '-') operatorAction('-');
-     else if (target === '+') operatorAction('+');
-     else if (target === '/') operatorAction('÷');
-     else if (target === '*') operatorAction('×');
-     else if (target === '%') operatorAction('%');
-	 else if (target === '~') {//Used '~' here for -/+ symbole as keyboards have no such key.
-        storedValue.push(parseFloat(-1*screen.textContent));
-		screen.textContent = storedValue[storedValue.length-1];
-        calcDisplay.textContent = storedValue[storedValue.length-1];
-        storedValue.pop();
-    } else if (target === '=') {
-        calcDisplay.textContent += ' Answer ';
-        backspace = [];
-        display.push('=');
-        getOperator();
-        backspace.push(parseFloat(screen.textContent));
-    }
+	/*Condition for calling math functions*/
+	if (target === '-') operatorAction('-');
+	else if (target === '+') operatorAction('+');
+	else if (target === '/') operatorAction('÷');
+	else if (target === '*') operatorAction('×');
+	else if (target === '%') operatorAction('%');
+	else if (target === '^') operatorAction('^');
+	else if (target === '=') {
+		if (backspace.length < 1) return;
+		else {
+			display.push('=');
+			backspace = [...calcDisplay.textContent];
+			getOperator();
+			calcDisplay.textContent = backspace.toString().replace(/,/g, '');
+			backspace.push(+screen.textContent);
+		}
+	}
 }
 /*This is just to remove repeated code from calculate() function*/
 function operatorAction(symbol) {
