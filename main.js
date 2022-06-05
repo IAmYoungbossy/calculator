@@ -157,18 +157,29 @@ function clearScreen(target) {
 }
 /*Function makes sure once a decimal is already in a number it can't be entered again*/
 function addDecimal(target) {
-    if (target === '.' && typeof storedValue[storedValue.length-1] === 'string') {
-		screen.textContent = '0';
-		storedValue.pop();
-		screen.textContent += target, calcDisplay.textContent += target;
-	} else if (target === '.' && (screen.textContent).indexOf('.') >= 0) {return;}
+	if (target === '.' && typeof storedValue[storedValue.length-1] === 'string') {
+		if (storedValue[storedValue.length-1] === 'Error') {
+			calcDisplay.textContent = '';
+			screen.textContent = '0', calcDisplay.textContent = '0';
+			screen.textContent += target, calcDisplay.textContent += target;
+			storedValue = [];
+			screenLength.push('.');
+		} else {
+			calcDisplay.textContent = '0', screen.textContent = '0';
+			storedValue.pop();
+			screen.textContent += target, calcDisplay.textContent += target;
+			screenLength.push('.');
+		}
+	} else if (target === '.' && (screen.textContent).indexOf('.') >= 0) return;
 	else {
-        if (target === '.' && screen.textContent !== '') {
-		    screen.textContent += target, calcDisplay.textContent += target;
+		if (target === '.' && screen.textContent !== '') {
+			screen.textContent += target, calcDisplay.textContent += target;
+			screenLength.push('.');
 		} else if (target === '.' && screen.textContent === '') {
-            zeroDefault.unshift('.');
-		    screen.textContent = '0', calcDisplay.textContent = '0';
-		    screen.textContent += target, calcDisplay.textContent += target;
+			zeroDefault.unshift('.');
+			screen.textContent = '0', calcDisplay.textContent = '0';
+			screen.textContent += target, calcDisplay.textContent += target;
+			screenLength.push('0'), screenLength.push('.');
 		}
 	}
 }
