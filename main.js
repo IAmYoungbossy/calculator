@@ -207,7 +207,8 @@ function clearNumber(target) {
 /*This function clears everything on the screen and stored numbers in arrays*/
 function clearAll() {
     screen.textContent = calcDisplay.textContent = '';
-    storedValue = [], storedOperator = [], screenLength = [], zeroDefault = [];
+    storedValue = [], storedOperator = [], screenLength = [], zeroDefault = [],
+    backspace = [], ans = [];
     if (zeroDefault.length < 1) screen2.textContent = '0';
 }
 /*Function toggles screen and calculator on and off*/
