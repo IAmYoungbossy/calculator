@@ -216,11 +216,12 @@ function powerOffOn(e) {
     numberButtons.forEach(btn => btn.classList.toggle('btn-show'));
     powerButton.classList.toggle('show');
     screen2.classList.toggle('screen2-toggle');
-    if (e.target.className == 'fa fa-power-off show') {
+    if (e.target.classList[2] == 'show') {
         buttonContainer.addEventListener('click', operator);
         window.addEventListener('keypress', operatorKey);
-    } else if (e.target.className == 'fa fa-power-off') {
+    } else if (e.target.classList[0] == 'fa') {
         buttonContainer.removeEventListener('click', operator);
+        window.removeEventListener('keypress', operatorKey);
         clearAll();
     }
 }
