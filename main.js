@@ -8,7 +8,7 @@ const calcDisplay = document.querySelector('#calculator-display');
 const powerButton = document.querySelector('.fa');
 /*Variable declaration*/
 let storedValue = [], storedOperator = [], screenLength = [],
-display = [], zeroDefault = [], backspace = [], screenDisplay;
+display = [], zeroDefault = [], backspace = [], screenDisplay, ans = [];
 
 /*Math Functions*/
 function math(a,b,answer){
