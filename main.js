@@ -16,11 +16,20 @@ function math(a,b,answer){
     return screen.textContent = storedValue[0];
     else return answer;
 }
-function add(a,b) {return math(a,b,(a+b));}
-function subtract(a,b) {return math(a,b,(a-b));}
-function multiply(a,b) {return math(a,b,(a*b));}
-function modulo(a,b) {return math(a,b,(a%b));}
-function divide(a,b) { return (b === 0)? screen.textContent = 'Error!': math(a,b,(a/b));}
+
+const add = (a, b) => math(a, b, Math.round((a+b)*1000)/1000);
+const subtract = (a, b) => math(a, b, Math.round((a-b)*1000)/1000);
+const multiply = (a, b) => math(a, b, Math.round((a*b)*1000)/1000);
+const modulo = (a, b) => math(a, b, Math.round((a%b)*1000)/1000);
+const power = (a, b) => math(a, b, Math.round((a**b)*1000)/1000);
+function divide(a, b) {
+	if (b === 0) {
+		storedValue.push('Error'), screen.textContent = 'Error';
+		return;
+	} else {
+		return math(a, b, Math.round((a/b)*1000)/1000);
+	}
+}
 
 /*Operator function uses all the functions for operation of the calculator*/
 function operator(e) {
