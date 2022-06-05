@@ -69,16 +69,20 @@ function calculate(target) {
 }
 /*This is just to remove repeated code from calculate() function*/
 function operatorAction(symbol) {
-    calcDisplay.textContent += symbol;
-    display.push(symbol);
-    getOperator();
-    storedValue = [];
-    pushOperator(symbol);
-    if (typeof (backspace[backspace.length-1]) === 'string'){
-        backspace.pop();
-        backspace.push(symbol);
-        calcDisplay.textContent = backspace.toString().replace(/,/g, '');
-    } else backspace.push(symbol);
+	if (screen.textContent == 'Error') {
+		storedValue = [], backspace = [];
+		storedValue.push('clear');
+		return;
+	}
+	if (backspace.length < 1) return;
+	else {
+		display.push(symbol);
+		getOperator();
+		storedValue = [];
+		pushOperator(symbol);
+		ans.push(symbol);
+		calcDisplay.textContent += symbol;
+	}
 }
 /*Function to check operator type and assign appropriate math function*/
 function getOperator() {
