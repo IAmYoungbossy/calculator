@@ -90,7 +90,8 @@ function getOperator() {
     (storedOperator[storedOperator.length-1] === '-')? assignOperator(subtract):
     (storedOperator[storedOperator.length-1] === '×')? assignOperator(multiply):
     (storedOperator[storedOperator.length-1] === '÷')? assignOperator(divide):
-    (storedOperator[storedOperator.length-1] === '%')? assignOperator(modulo): false;
+    (storedOperator[storedOperator.length-1] === '%')? assignOperator(modulo):
+    (storedOperator[storedOperator.length-1] === '^')? assignOperator(power): false;
 }
 /*This function applies the math function and returns result to screen*/
 function assignOperator(operate) {
