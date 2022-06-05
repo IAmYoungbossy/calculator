@@ -108,8 +108,11 @@ function assignOperator(operate) {
 }
 /*Function pushes screen display number and operator type to their respective array*/
 function pushOperator(symbol) {
-    storedValue.push(parseFloat(screen.textContent));
-    storedValue.push(symbol), storedOperator.push(symbol);
+	screenLength = [], backspace = [];
+	storedValue.push(parseFloat(screen.textContent));
+	backspace.push(parseFloat(screen.textContent));
+	storedValue.push(symbol), storedOperator.push(symbol);
+	backspace.push(symbol);
 }
 /*Button function gets value of the number button or keyboard value for calculation*/
 function numberBtn(target,number){
