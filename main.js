@@ -127,12 +127,21 @@ function numberBtn(target,number){
 }
 /*This function makes sure total digits doesn't exceed 20 on the result screen*/
 function countScreenLength() {
-	if (screenLength.length > 20) {
+	if (screenLength.indexOf('.') > 0 && screenLength.length > (parseFloat(screenLength.indexOf('.'))+5)) {
+		screenLength.pop();
+		screen.textContent = 'Max: 4 dec. places';
+		setTimeout(function() {
+			let display = screenLength.join().replace(/,/g, '');
+			screen.textContent = display;
+			calcDisplay.textContent = display;
+		}, 500);
+	} else if (screenLength.length > 20) {
 		screenLength.pop();
 		screen.textContent = 'Large Number';
 		setTimeout(function() {
-			let display = screenLength.toString().replace(/,/g, '');
-			screen.textContent = display, calcDisplay.textContent = display;
+			let display = screenLength.join().replace(/,/g, '');
+			screen.textContent = display;
+			calcDisplay.textContent = display;
 		}, 500);
 	}
 }
