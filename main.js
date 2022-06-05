@@ -97,9 +97,10 @@ function getOperator() {
 function assignOperator(operate) {
     storedValue.push(parseFloat(screen.textContent));
     if (isNaN(operate((storedValue[storedValue.length-2]),(storedValue[storedValue.length-1]))) === true)
-        screen.textContent = 'Error!';
+        screen2.textContent = '', screen.textContent = 'Error!';
     else {
         screen.textContent = operate((storedValue[storedValue.length-2]),(storedValue[storedValue.length-1]));
+        calcDisplay.textContent = screen.textContent;
         storedValue.push(parseFloat(screen.textContent));
         storedValue.push('clear');
         storedOperator = [];
