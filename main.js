@@ -4,7 +4,7 @@ const screen2 = document.querySelector('#screen2');
 const buttonContainer = document.querySelector('.buttoncontainer');
 const numberButtons = buttonContainer.querySelectorAll('.btn');
 const clearButton = buttonContainer.querySelector('#clear');
-const calcDisplay = document.querySelector('#calculator-display');
+const topScreenHistoryDisplay = document.querySelector('#calculator-display');
 const powerButton = document.querySelector('.fa');
 /*Variable declaration*/
 let storedValue = [], storedOperator = [], screenLength = [],
@@ -26,15 +26,13 @@ function divide(a, b) {
 	if (b === 0) {
 		storedValue.push('Error'), screen.textContent = 'Error';
 		return;
-	} else {
-		return math(a, b, Math.round((a/b)*1000)/1000);
-	}
+	} else return math(a, b, Math.round((a/b)*1000)/1000);
 }
 
 /*Operator function uses all the functions for operation of the calculator*/
 function operator(e) {
         checkOperatorAndError(e.target.value);
-        for(let i = 0; i < 10; i++) numberButtons(e.target.value, `${i}`);
+        for(let i = 0; i < 10; i++) numberBtn(e.target.value, `${i}`);
         addDecimal(e.target.textContent);
         clearDefaultZero(e.target.value);
         deleteRecentNumber(e.target.value);
@@ -42,7 +40,7 @@ function operator(e) {
 /*This is same function as above but for keyboard*/
 function operatorKeyboard(e) {
         checkOperatorAndError(e.key);
-        for(let i = 0; i < 10; i++) numberButtons(e.key, `${i}`);
+        for(let i = 0; i < 10; i++) numberBtn(e.key, `${i}`);
         addDecimal(e.key);
         clearDefaultZero(e.key);
         deleteRecentNumber(e.key);
@@ -60,9 +58,9 @@ function checkOperatorAndError(target) {
 		if (backspace.length < 1) return;
 		else {
 			display.push('=');
-			backspace = [...calcDisplay.textContent];
+			backspace = [...topScreenHistoryDisplay.textContent];
 			checkOperatorAndAssign();
-			calcDisplay.textContent = backspace.toString().replace(/,/g, '');
+			topScreenHistoryDisplay.textContent = backspace.toString().replace(/,/g, '');
 			backspace.push(+screen.textContent);
 		}
 	}
@@ -81,7 +79,7 @@ function checkForError(symbol) {
 		storedValue = [];
 		pushOperatorToArray(symbol);
 		ans.push(symbol);
-		calcDisplay.textContent += symbol;
+		topScreenHistoryDisplay.textContent += symbol;
 	}
 }
 /*Function to check operator type and assign appropriate math function*/
@@ -100,7 +98,7 @@ function assignMathFunction(operate) {
         screen2.textContent = '', screen.textContent = 'Error!';
     else {
         screen.textContent = operate((storedValue[storedValue.length-2]),(storedValue[storedValue.length-1]));
-        calcDisplay.textContent = screen.textContent;
+        topScreenHistoryDisplay.textContent = screen.textContent;
         storedValue.push(parseFloat(screen.textContent));
         storedValue.push('clear');
         storedOperator = [];
@@ -115,11 +113,11 @@ function pushOperatorToArray(symbol) {
 	backspace.push(symbol);
 }
 /*Button function gets value of the number button or keyboard value for calculation*/
-function numberButtons(target,number){
+function numberBtn(target,number){
     if (target === number && typeof storedValue[storedValue.length-1] === 'string')
     clearScreenForNewCalculation(target), backspace.push(parseInt(number));
     else if (target === number) {
-    screen.textContent += target, calcDisplay.textContent += target;
+    screen.textContent += target, topScreenHistoryDisplay.textContent += target;
     screenLength.push(number), backspace.push(parseInt(number));
     zeroDefault.push(number)
     countScreenLength();
@@ -133,7 +131,7 @@ function countScreenLength() {
 		setTimeout(function() {
 			let display = screenLength.join().replace(/,/g, '');
 			screen.textContent = display;
-			calcDisplay.textContent = display;
+			topScreenHistoryDisplay.textContent = display;
 		}, 500);
 	} else if (screenLength.length > 20) {
 		screenLength.pop();
@@ -141,17 +139,17 @@ function countScreenLength() {
 		setTimeout(function() {
 			let display = screenLength.join().replace(/,/g, '');
 			screen.textContent = display;
-			calcDisplay.textContent = display;
+			topScreenHistoryDisplay.textContent = display;
 		}, 500);
 	}
 }
 /*This function clears the screen for new calculation once '=' has been used*/
 function clearScreenForNewCalculation(target) {
-    if (display[display.length-1] === '=') calcDisplay.textContent = '';
+    if (display[display.length-1] === '=') topScreenHistoryDisplay.textContent = '';
     display.pop();
     screen.textContent = '';
     storedValue.pop();
-    screen.textContent += target, calcDisplay.textContent += target;
+    screen.textContent += target, topScreenHistoryDisplay.textContent += target;
     screenLength.push(screen.textContent);
 	countScreenLength();
 }
@@ -159,26 +157,26 @@ function clearScreenForNewCalculation(target) {
 function addDecimal(target) {
 	if (target === '.' && typeof storedValue[storedValue.length-1] === 'string') {
 		if (storedValue[storedValue.length-1] === 'Error') {
-			calcDisplay.textContent = '';
-			screen.textContent = '0', calcDisplay.textContent = '0';
-			screen.textContent += target, calcDisplay.textContent += target;
+			topScreenHistoryDisplay.textContent = '';
+			screen.textContent = '0', topScreenHistoryDisplay.textContent = '0';
+			screen.textContent += target, topScreenHistoryDisplay.textContent += target;
 			storedValue = [];
 			screenLength.push('.');
 		} else {
-			calcDisplay.textContent = '0', screen.textContent = '0';
+			topScreenHistoryDisplay.textContent = '0', screen.textContent = '0';
 			storedValue.pop();
-			screen.textContent += target, calcDisplay.textContent += target;
+			screen.textContent += target, topScreenHistoryDisplay.textContent += target;
 			screenLength.push('.');
 		}
 	} else if (target === '.' && (screen.textContent).indexOf('.') >= 0) return;
 	else {
 		if (target === '.' && screen.textContent !== '') {
-			screen.textContent += target, calcDisplay.textContent += target;
+			screen.textContent += target, topScreenHistoryDisplay.textContent += target;
 			screenLength.push('.');
 		} else if (target === '.' && screen.textContent === '') {
 			zeroDefault.unshift('.');
-			screen.textContent = '0', calcDisplay.textContent = '0';
-			screen.textContent += target, calcDisplay.textContent += target;
+			screen.textContent = '0', topScreenHistoryDisplay.textContent = '0';
+			screen.textContent += target, topScreenHistoryDisplay.textContent += target;
 			screenLength.push('0'), screenLength.push('.');
 		}
 	}
@@ -197,16 +195,16 @@ function deleteRecentNumber(target) {
 		screenLength.pop(), zeroDefault.pop();
         if (zeroDefault.length < 1 || screenLength.length < 1) screen2.textContent = '0';
 		backspace = [], screenDisplay = [];
-		backspace = [...screen.textContent], screenDisplay = [...calcDisplay.textContent];
+		backspace = [...screen.textContent], screenDisplay = [...topScreenHistoryDisplay.textContent];
 		backspace.pop(), screenDisplay.pop();
-		screen.textContent = calcDisplay.textContent = '';
+		screen.textContent = topScreenHistoryDisplay.textContent = '';
 		screen.textContent = backspace.toString().replace(/,/g, '');
-		calcDisplay.textContent = screenDisplay.toString().replace(/,/g, '');
+		topScreenHistoryDisplay.textContent = screenDisplay.toString().replace(/,/g, '');
     }
 }
 /*This function clears everything on the screen and stored numbers in arrays*/
 function clearAllNumbers() {
-    screen.textContent = calcDisplay.textContent = '';
+    screen.textContent = topScreenHistoryDisplay.textContent = '';
     storedValue = [], storedOperator = [], screenLength = [], zeroDefault = [],
     backspace = [], ans = [];
     if (zeroDefault.length < 1) screen2.textContent = '0';
