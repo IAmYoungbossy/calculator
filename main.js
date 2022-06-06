@@ -33,42 +33,42 @@ function divide(a, b) {
 
 /*Operator function uses all the functions for operation of the calculator*/
 function operator(e) {
-        calculate(e.target.value);
-        for(let i = 0; i < 10; i++) numberBtn(e.target.value, `${i}`);
+        checkOperatorAndError(e.target.value);
+        for(let i = 0; i < 10; i++) numberButtons(e.target.value, `${i}`);
         addDecimal(e.target.textContent);
         clearDefaultZero(e.target.value);
-        clearNumber(e.target.value);
+        deleteRecentNumber(e.target.value);
 }
 /*This is same function as above but for keyboard*/
-function operatorKey(e) {
-        calculate(e.key);
-        for(let i = 0; i < 10; i++) numberBtn(e.key, `${i}`);
+function operatorKeyboard(e) {
+        checkOperatorAndError(e.key);
+        for(let i = 0; i < 10; i++) numberButtons(e.key, `${i}`);
         addDecimal(e.key);
         clearDefaultZero(e.key);
-        clearNumber(e.key);
+        deleteRecentNumber(e.key);
 }
 /*Assigns math functions for calculation*/
-function calculate(target) {
+function checkOperatorAndError(target) {
 	/*Condition for calling math functions*/
-	if (target === '-') operatorAction('-');
-	else if (target === '+') operatorAction('+');
-	else if (target === '/') operatorAction('÷');
-	else if (target === '*') operatorAction('×');
-	else if (target === '%') operatorAction('%');
-	else if (target === '^') operatorAction('^');
+	if (target === '-') checkForError('-');
+	else if (target === '+') checkForError('+');
+	else if (target === '/') checkForError('÷');
+	else if (target === '*') checkForError('×');
+	else if (target === '%') checkForError('%');
+	else if (target === '^') checkForError('^');
 	else if (target === '=') {
 		if (backspace.length < 1) return;
 		else {
 			display.push('=');
 			backspace = [...calcDisplay.textContent];
-			getOperator();
+			checkOperatorAndAssign();
 			calcDisplay.textContent = backspace.toString().replace(/,/g, '');
 			backspace.push(+screen.textContent);
 		}
 	}
 }
-/*This is just to remove repeated code from calculate() function*/
-function operatorAction(symbol) {
+/*This is just to remove repeated code from checkOperatorAndError() function*/
+function checkForError(symbol) {
 	if (screen.textContent == 'Error') {
 		storedValue = [], backspace = [];
 		storedValue.push('clear');
@@ -77,24 +77,24 @@ function operatorAction(symbol) {
 	if (backspace.length < 1) return;
 	else {
 		display.push(symbol);
-		getOperator();
+		checkOperatorAndAssign();
 		storedValue = [];
-		pushOperator(symbol);
+		pushOperatorToArray(symbol);
 		ans.push(symbol);
 		calcDisplay.textContent += symbol;
 	}
 }
 /*Function to check operator type and assign appropriate math function*/
-function getOperator() {
-    (storedOperator[storedOperator.length-1] === '+')? assignOperator(add):
-    (storedOperator[storedOperator.length-1] === '-')? assignOperator(subtract):
-    (storedOperator[storedOperator.length-1] === '×')? assignOperator(multiply):
-    (storedOperator[storedOperator.length-1] === '÷')? assignOperator(divide):
-    (storedOperator[storedOperator.length-1] === '%')? assignOperator(modulo):
-    (storedOperator[storedOperator.length-1] === '^')? assignOperator(power): false;
+function checkOperatorAndAssign() {
+    (storedOperator[storedOperator.length-1] === '+')? assignMathFunction(add):
+    (storedOperator[storedOperator.length-1] === '-')? assignMathFunction(subtract):
+    (storedOperator[storedOperator.length-1] === '×')? assignMathFunction(multiply):
+    (storedOperator[storedOperator.length-1] === '÷')? assignMathFunction(divide):
+    (storedOperator[storedOperator.length-1] === '%')? assignMathFunction(modulo):
+    (storedOperator[storedOperator.length-1] === '^')? assignMathFunction(power): false;
 }
 /*This function applies the math function and returns result to screen*/
-function assignOperator(operate) {
+function assignMathFunction(operate) {
     storedValue.push(parseFloat(screen.textContent));
     if (isNaN(operate((storedValue[storedValue.length-2]),(storedValue[storedValue.length-1]))) === true)
         screen2.textContent = '', screen.textContent = 'Error!';
@@ -107,7 +107,7 @@ function assignOperator(operate) {
     }
 }
 /*Function pushes screen display number and operator type to their respective array*/
-function pushOperator(symbol) {
+function pushOperatorToArray(symbol) {
 	screenLength = [], backspace = [];
 	storedValue.push(parseFloat(screen.textContent));
 	backspace.push(parseFloat(screen.textContent));
@@ -115,9 +115,9 @@ function pushOperator(symbol) {
 	backspace.push(symbol);
 }
 /*Button function gets value of the number button or keyboard value for calculation*/
-function numberBtn(target,number){
+function numberButtons(target,number){
     if (target === number && typeof storedValue[storedValue.length-1] === 'string')
-    clearScreen(target), backspace.push(parseInt(number));
+    clearScreenForNewCalculation(target), backspace.push(parseInt(number));
     else if (target === number) {
     screen.textContent += target, calcDisplay.textContent += target;
     screenLength.push(number), backspace.push(parseInt(number));
@@ -146,7 +146,7 @@ function countScreenLength() {
 	}
 }
 /*This function clears the screen for new calculation once '=' has been used*/
-function clearScreen(target) {
+function clearScreenForNewCalculation(target) {
     if (display[display.length-1] === '=') calcDisplay.textContent = '';
     display.pop();
     screen.textContent = '';
@@ -192,7 +192,7 @@ function clearDefaultZero(target) {
     }
 }
 /*Backspace function to clear each number*/
-function clearNumber(target) {
+function deleteRecentNumber(target) {
     if (target === 'Delete') {
 		screenLength.pop(), zeroDefault.pop();
         if (zeroDefault.length < 1 || screenLength.length < 1) screen2.textContent = '0';
@@ -205,7 +205,7 @@ function clearNumber(target) {
     }
 }
 /*This function clears everything on the screen and stored numbers in arrays*/
-function clearAll() {
+function clearAllNumbers() {
     screen.textContent = calcDisplay.textContent = '';
     storedValue = [], storedOperator = [], screenLength = [], zeroDefault = [],
     backspace = [], ans = [];
@@ -218,13 +218,13 @@ function powerOffOn(e) {
     screen2.classList.toggle('screen2-toggle');
     if (e.target.classList[2] == 'show') {
         buttonContainer.addEventListener('click', operator);
-        window.addEventListener('keypress', operatorKey);
+        window.addEventListener('keypress', operatorKeyboard);
     } else if (e.target.classList[0] == 'fa') {
         buttonContainer.removeEventListener('click', operator);
-        window.removeEventListener('keypress', operatorKey);
-        clearAll();
+        window.removeEventListener('keypress', operatorKeyboard);
+        clearAllNumbers();
     }
 }
 /*Event listeners*/
 powerButton.addEventListener('click', powerOffOn);
-clearButton.addEventListener('click', () => clearAll());
+clearButton.addEventListener('click', () => clearAllNumbers());
