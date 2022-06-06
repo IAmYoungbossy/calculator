@@ -6,7 +6,7 @@ const clearButton = buttonContainer.querySelector('#clear');
 const topScreenHistoryDisplay = document.querySelector('#calculator-display');
 const powerButton = document.querySelector('.fa');
 let storedValue = [], storedOperator = [], screenLength = [],
-display = [], zeroDefault = [], backspace = [], screenDisplay, answer = [];
+clearScreen = [], backspace = [], screenDisplay;
 
 function math(a,b,answerwer){
     if (Number.isFinite(parseFloat(a)) === false || Number.isFinite(parseFloat(b)) === false)
@@ -29,7 +29,7 @@ function operator(e) {
         checkOperatorAndError(e.target.value);
         for(let i = 0; i < 10; i++) numberBtn(e.target.value, `${i}`);
         addDecimal(e.target.textContent);
-        clearDefaultZero(e.target.value);
+        clearDefaultZero();
         deleteRecentNumber(e.target.value);
 }
 
@@ -37,7 +37,7 @@ function operatorKeyboard(e) {
         checkOperatorAndError(e.key);
         for(let i = 0; i < 10; i++) numberBtn(e.key, `${i}`);
         addDecimal(e.key);
-        clearDefaultZero(e.key);
+        clearDefaultZero();
         deleteRecentNumber(e.key);
 }
 
@@ -51,7 +51,7 @@ function checkOperatorAndError(target) {
 	else if (target === '=') {
 		if (backspace.length < 1) return;
 		else {
-			display.push('=');
+			clearScreen.push('=');
 			backspace = [...topScreenHistoryDisplay.textContent];
 			checkOperatorAndAssign();
 			topScreenHistoryDisplay.textContent = backspace.toString().replace(/,/g, '');
@@ -69,11 +69,10 @@ function checkForError(symbol) {
 	}
 	if (backspace.length < 1) return;
 	else {
-		display.push(symbol);
+		clearScreen.push(symbol);
 		checkOperatorAndAssign();
 		storedValue = [];
 		pushOperatorToArray(symbol);
-		answer.push(symbol);
 		topScreenHistoryDisplay.textContent += symbol;
 	}
 }
@@ -114,34 +113,29 @@ function numberBtn(target,number){
     else if (target === number) {
     screen.textContent += target, topScreenHistoryDisplay.textContent += target;
     screenLength.push(number), backspace.push(parseInt(number));
-    zeroDefault.push(number)
     countScreenLength();
     }
 }
 
 function countScreenLength() {
-	if (screenLength.indexOf('.') > 0 && screenLength.length > (parseFloat(screenLength.indexOf('.'))+5)) {
-		screenLength.pop();
-		screen.textContent = 'Max: 4 dec. places';
-		setTimeout(function() {
-			let display = screenLength.join().replace(/,/g, '');
-			screen.textContent = display;
-			topScreenHistoryDisplay.textContent = display;
-		}, 500);
-	} else if (screenLength.length > 20) {
-		screenLength.pop();
-		screen.textContent = 'Large Number';
-		setTimeout(function() {
-			let display = screenLength.join().replace(/,/g, '');
-			screen.textContent = display;
-			topScreenHistoryDisplay.textContent = display;
-		}, 500);
-	}
+	if (screenLength.indexOf('.') > 0 && screenLength.length > (parseFloat(screenLength.indexOf('.'))+5))
+		setTimeoutFunction('Max: 4 dec. places');
+	else if (screenLength.length > 20) setTimeoutFunction('Large Number')
+}
+
+function setTimeoutFunction(errorMsg){
+	screenLength.pop();
+	screen.textContent = errorMsg;
+	setTimeout(function() {
+		let display = screenLength.join().replace(/,/g, '');
+		screen.textContent = display;
+		topScreenHistoryDisplay.textContent = display;
+	}, 500);
 }
 
 function clearScreenForNewCalculation(target) {
-    if (display[display.length-1] === '=') topScreenHistoryDisplay.textContent = '';
-    display.pop();
+    if (clearScreen[clearScreen.length-1] === '=') topScreenHistoryDisplay.textContent = '';
+    clearScreen.pop();
     screen.textContent = '';
     storedValue.pop();
     screen.textContent += target, topScreenHistoryDisplay.textContent += target;
@@ -169,7 +163,6 @@ function addDecimal(target) {
 			screen.textContent += target, topScreenHistoryDisplay.textContent += target;
 			screenLength.push('.');
 		} else if (target === '.' && screen.textContent === '') {
-			zeroDefault.unshift('.');
 			screen.textContent = '0', topScreenHistoryDisplay.textContent = '0';
 			screen.textContent += target, topScreenHistoryDisplay.textContent += target;
 			screenLength.push('0'), screenLength.push('.');
@@ -177,18 +170,14 @@ function addDecimal(target) {
 	}
 }
 
-function clearDefaultZero(target) {
-    if (zeroDefault.length > 0) screen2.textContent = '';
-    if (target === '.') {
-        zeroDefault.push('.');
-        screen2.textContent = '';
-    }
+function clearDefaultZero() {
+    if (screenLength.length > 0) screen2.textContent = '';
 }
 
 function deleteRecentNumber(target) {
     if (target === 'Delete') {
-		screenLength.pop(), zeroDefault.pop();
-        if (zeroDefault.length < 1 || screenLength.length < 1) screen2.textContent = '0';
+		screenLength.pop();
+        if (screenLength.length < 1 ) screen2.textContent = '0';
 		backspace = [], screenDisplay = [];
 		backspace = [...screen.textContent], screenDisplay = [...topScreenHistoryDisplay.textContent];
 		backspace.pop(), screenDisplay.pop();
@@ -200,9 +189,8 @@ function deleteRecentNumber(target) {
 
 function clearAllNumbers() {
     screen.textContent = topScreenHistoryDisplay.textContent = '';
-    storedValue = [], storedOperator = [], screenLength = [], zeroDefault = [],
-    backspace = [], answer = [];
-    if (zeroDefault.length < 1) screen2.textContent = '0';
+    storedValue = [], storedOperator = [], screenLength = [], backspace = [];
+    if (screenLength.length < 1) screen2.textContent = '0';
 }
 
 function powerOffOn(e) {
