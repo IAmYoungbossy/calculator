@@ -62,6 +62,7 @@ function checkOperatorAndError(target) {
 }
 
 function checkForError(symbol) {
+	if(clearScreen[clearScreen.length-1] == '=') topScreenHistoryDisplay.textContent = screen.textContent;
 	if (screen.textContent == 'Error') {
 		storedValue = [], backspace = [];
 		storedValue.push('clear');
@@ -103,8 +104,7 @@ function pushOperatorToArray(symbol) {
 	screenLength = [], backspace = [];
 	storedValue.push(parseFloat(screen.textContent));
 	backspace.push(parseFloat(screen.textContent));
-	storedValue.push(symbol), storedOperator.push(symbol);
-	backspace.push(symbol);
+	storedValue.push(symbol), storedOperator.push(symbol), backspace.push(symbol);
 }
 
 function numberBtn(target,number){
