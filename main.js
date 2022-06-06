@@ -125,7 +125,6 @@ function countScreenLength() {
 		screen.textContent = 'Max: 4 dec. places';
 		setTimeout(function() {
 			let display = screenLength.join().replace(/,/g, '');
-			console.log(screenLength);
 			screen.textContent = display;
 			topScreenHistoryDisplay.textContent = display;
 		}, 500);
