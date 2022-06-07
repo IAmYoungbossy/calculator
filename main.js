@@ -26,7 +26,7 @@ function divide(a, b) {
 }
 
 function operator(e) {
-        checkOperatorAndError(e.target.value);
+        checkOperatorType(e.target.value);
         for(let i = 0; i < 10; i++) numberBtn(e.target.value, `${i}`);
         addDecimal(e.target.textContent);
         clearDefaultZero();
@@ -34,20 +34,20 @@ function operator(e) {
 }
 
 function operatorKeyboard(e) {
-        checkOperatorAndError(e.key);
+        checkOperatorType(e.key);
         for(let i = 0; i < 10; i++) numberBtn(e.key, `${i}`);
         addDecimal(e.key);
         clearDefaultZero();
         deleteRecentNumber(e.key);
 }
 
-function checkOperatorAndError(target) {
-	if (target === '-') checkForError('-');
-	else if (target === '+') checkForError('+');
-	else if (target === '/') checkForError('÷');
-	else if (target === '*') checkForError('×');
-	else if (target === '%') checkForError('%');
-	else if (target === '^') checkForError('^');
+function checkOperatorType(target) {
+	if (target === '-') checkForOperand('-');
+	else if (target === '+') checkForOperand('+');
+	else if (target === '/') checkForOperand('÷');
+	else if (target === '*') checkForOperand('×');
+	else if (target === '%') checkForOperand('%');
+	else if (target === '^') checkForOperand('^');
 	else if (target === '=') {
 		if (backspace.length < 1) return;
 		else {
@@ -61,7 +61,7 @@ function checkOperatorAndError(target) {
 	}
 }
 
-function checkForError(symbol) {
+function checkForOperand(symbol) {
 	if(clearScreen[clearScreen.length-1] == '=') historyDisplay.textContent = screen.textContent;
 	if (backspace.length < 1) return;
 	else {
