@@ -8,10 +8,10 @@ const powerButton = document.querySelector('.fa');
 let storedValue = [], storedOperator = [], screenLength = [],
 clearScreen = [], backspace = [], screenDisplay;
 
-function math(a,b,answerwer){
+function math(a,b,answer){
     if (Number.isFinite(parseFloat(a)) === false || Number.isFinite(parseFloat(b)) === false)
     return screen.textContent = storedValue[0];
-    else return answerwer;
+    else return answer;
 }
 const add = (a, b) => math(a, b, Math.round((a+b)*1000)/1000);
 const subtract = (a, b) => math(a, b, Math.round((a-b)*1000)/1000);
