@@ -1,6 +1,6 @@
 const screen = document.querySelector('#screen1');
 const screen2 = document.querySelector('#screen2');
-const calcContainer = document.querySelector('.calcContainer');
+const calcContainer = document.querySelector('.calc-container');
 const numberButtons = calcContainer.querySelectorAll('.btn');
 const clearButton = calcContainer.querySelector('#clear');
 const historyDisplay = document.querySelector('#calculator-display');
