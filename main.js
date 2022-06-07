@@ -3,7 +3,7 @@ const screen2 = document.querySelector('#screen2');
 const buttonContainer = document.querySelector('.buttoncontainer');
 const numberButtons = buttonContainer.querySelectorAll('.btn');
 const clearButton = buttonContainer.querySelector('#clear');
-const HistoryDisplay = document.querySelector('#calculator-display');
+const historyDisplay = document.querySelector('#calculator-display');
 const powerButton = document.querySelector('.fa');
 let storedValue = [], storedOperator = [], screenLength = [],
 clearScreen = [], backspace = [], screenDisplay;
@@ -52,9 +52,9 @@ function checkOperatorAndError(target) {
 		if (backspace.length < 1) return;
 		else {
 			clearScreen.push('=');
-			backspace = [...HistoryDisplay.textContent];
+			backspace = [...historyDisplay.textContent];
 			checkOperatorAndAssign();
-			HistoryDisplay.textContent = backspace.toString().replace(/,/g, '');
+			historyDisplay.textContent = backspace.toString().replace(/,/g, '');
 			backspace.push(+screen.textContent);
 			screenLength = [];
 		}
@@ -62,7 +62,7 @@ function checkOperatorAndError(target) {
 }
 
 function checkForError(symbol) {
-	if(clearScreen[clearScreen.length-1] == '=') HistoryDisplay.textContent = screen.textContent;
+	if(clearScreen[clearScreen.length-1] == '=') historyDisplay.textContent = screen.textContent;
 	if (screen.textContent == 'Error') {
 		storedValue = [], backspace = [];
 		storedValue.push('clear');
@@ -74,7 +74,7 @@ function checkForError(symbol) {
 		checkOperatorAndAssign();
 		storedValue = [];
 		pushOperatorToArray(symbol);
-		HistoryDisplay.textContent += symbol;
+		historyDisplay.textContent += symbol;
 	}
 }
 
@@ -93,7 +93,7 @@ function assignMathFunction(operate) {
         screen2.textContent = '', screen.textContent = 'Error!';
     else {
         screen.textContent = operate((storedValue[storedValue.length-2]),(storedValue[storedValue.length-1]));
-        HistoryDisplay.textContent = screen.textContent;
+        historyDisplay.textContent = screen.textContent;
         storedValue.push(parseFloat(screen.textContent));
         storedValue.push('clear');
         storedOperator = [];
@@ -111,7 +111,7 @@ function numberBtn(target,number){
     if (target === number && typeof storedValue[storedValue.length-1] === 'string')
     clearScreenForNewCalculation(target), backspace.push(parseInt(number));
     else if (target === number) {
-    screen.textContent += target, HistoryDisplay.textContent += target;
+    screen.textContent += target, historyDisplay.textContent += target;
     screenLength.push(number), backspace.push(parseInt(number));
     countScreenLength();
     }
@@ -129,16 +129,16 @@ function setTimeoutFunction(errorMsg){
 	setTimeout(function() {
 		let display = screenLength.join().replace(/,/g, '');
 		screen.textContent = display;
-		HistoryDisplay.textContent = display;
+		historyDisplay.textContent = display;
 	}, 500);
 }
 
 function clearScreenForNewCalculation(target) {
-    if (clearScreen[clearScreen.length-1] === '=') HistoryDisplay.textContent = '';
+    if (clearScreen[clearScreen.length-1] === '=') historyDisplay.textContent = '';
     clearScreen.pop();
     screen.textContent = '';
     storedValue.pop();
-    screen.textContent += target, HistoryDisplay.textContent += target;
+    screen.textContent += target, historyDisplay.textContent += target;
     screenLength.push(screen.textContent);
 	countScreenLength();
 }
@@ -146,25 +146,25 @@ function clearScreenForNewCalculation(target) {
 function addDecimal(target) {
 	if (target === '.' && typeof storedValue[storedValue.length-1] === 'string') {
 		if (storedValue[storedValue.length-1] === 'Error') {
-			HistoryDisplay.textContent = '';
-			screen.textContent = '0', HistoryDisplay.textContent = '0';
-			screen.textContent += target, HistoryDisplay.textContent += target;
+			historyDisplay.textContent = '';
+			screen.textContent = '0', historyDisplay.textContent = '0';
+			screen.textContent += target, historyDisplay.textContent += target;
 			storedValue = [];
 			screenLength.push('0'), screenLength.push('.');
 		} else {
-			HistoryDisplay.textContent = '0', screen.textContent = '0';
+			historyDisplay.textContent = '0', screen.textContent = '0';
 			storedValue.pop();
-			screen.textContent += target, HistoryDisplay.textContent += target;
+			screen.textContent += target, historyDisplay.textContent += target;
 			screenLength.push('0'), screenLength.push('.');
 		}
 	} else if (target === '.' && (screen.textContent).indexOf('.') >= 0) return;
 	else {
 		if (target === '.' && screen.textContent !== '') {
-			screen.textContent += target, HistoryDisplay.textContent += target;
+			screen.textContent += target, historyDisplay.textContent += target;
 			screenLength.push('.');
 		} else if (target === '.' && screen.textContent === '') {
-			screen.textContent = '0', HistoryDisplay.textContent = '0';
-			screen.textContent += target, HistoryDisplay.textContent += target;
+			screen.textContent = '0', historyDisplay.textContent = '0';
+			screen.textContent += target, historyDisplay.textContent += target;
 			screenLength.push('0'), screenLength.push('.');
 		}
 	}
@@ -179,16 +179,16 @@ function deleteRecentNumber(target) {
 		screenLength.pop();
         if (screenLength.length < 1 ) screen2.textContent = '0';
 		backspace = [], screenDisplay = [];
-		backspace = [...screen.textContent], screenDisplay = [...HistoryDisplay.textContent];
+		backspace = [...screen.textContent], screenDisplay = [...historyDisplay.textContent];
 		backspace.pop(), screenDisplay.pop();
-		screen.textContent = HistoryDisplay.textContent = '';
+		screen.textContent = historyDisplay.textContent = '';
 		screen.textContent = backspace.toString().replace(/,/g, '');
-		HistoryDisplay.textContent = screenDisplay.toString().replace(/,/g, '');
+		historyDisplay.textContent = screenDisplay.toString().replace(/,/g, '');
     }
 }
 
 function clearAllNumbers() {
-    screen.textContent = HistoryDisplay.textContent = '';
+    screen.textContent = historyDisplay.textContent = '';
     storedValue = [], storedOperator = [], screenLength = [], backspace = [];
     if (screenLength.length < 1) screen2.textContent = '0';
 }
