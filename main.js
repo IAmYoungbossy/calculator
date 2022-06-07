@@ -63,11 +63,6 @@ function checkOperatorAndError(target) {
 
 function checkForError(symbol) {
 	if(clearScreen[clearScreen.length-1] == '=') historyDisplay.textContent = screen.textContent;
-	if (screen.textContent == 'Error') {
-		storedValue = [], backspace = [];
-		storedValue.push('clear');
-		return;
-	}
 	if (backspace.length < 1) return;
 	else {
 		clearScreen.push(symbol);
@@ -89,14 +84,21 @@ function checkOperatorAndAssign() {
 
 function assignMathFunction(operate) {
     storedValue.push(parseFloat(screen.textContent));
-    if (isNaN(operate((storedValue[storedValue.length-2]),(storedValue[storedValue.length-1]))) === true)
+    if (isNaN(operate((storedValue[storedValue.length-2]),
+	(storedValue[storedValue.length-1]))) === true)
         screen2.textContent = '', screen.textContent = 'Error!';
     else {
-        screen.textContent = operate((storedValue[storedValue.length-2]),(storedValue[storedValue.length-1]));
-        historyDisplay.textContent = screen.textContent;
-        storedValue.push(parseFloat(screen.textContent));
-        storedValue.push('clear');
-        storedOperator = [];
+		let result = operate((storedValue[storedValue.length-2]),
+		(storedValue[storedValue.length-1]));
+		if(result > 999999999999999) screen.textContent = 'Out of Bounds',
+		setTimeout(() => clearAllNumbers(), 500);
+        else {
+			screen.textContent = result;
+        	historyDisplay.textContent = screen.textContent;
+        	storedValue.push(parseFloat(screen.textContent));
+        	storedValue.push('clear');
+        	storedOperator = [];
+		}
     }
 }
 
@@ -118,7 +120,8 @@ function numberBtn(target,number){
 }
 
 function countScreenLength() {
-	if (screenLength.indexOf('.') > 0 && screenLength.length > (parseFloat(screenLength.indexOf('.'))+5))
+	if (screenLength.indexOf('.') > 0 && 
+	screenLength.length > (parseFloat(screenLength.indexOf('.'))+5))
 		setTimeoutFunction('Max: 4 dec. places');
 	else if (screenLength.length > 20) setTimeoutFunction('Large Number')
 }
@@ -145,18 +148,10 @@ function clearScreenForNewCalculation(target) {
 
 function addDecimal(target) {
 	if (target === '.' && typeof storedValue[storedValue.length-1] === 'string') {
-		if (storedValue[storedValue.length-1] === 'Error') {
-			historyDisplay.textContent = '';
-			screen.textContent = '0', historyDisplay.textContent = '0';
-			screen.textContent += target, historyDisplay.textContent += target;
-			storedValue = [];
-			screenLength.push('0'), screenLength.push('.');
-		} else {
 			historyDisplay.textContent = '0', screen.textContent = '0';
 			storedValue.pop();
 			screen.textContent += target, historyDisplay.textContent += target;
 			screenLength.push('0'), screenLength.push('.');
-		}
 	} else if (target === '.' && (screen.textContent).indexOf('.') >= 0) return;
 	else {
 		if (target === '.' && screen.textContent !== '') {
