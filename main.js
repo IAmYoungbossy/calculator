@@ -1,8 +1,8 @@
 const screen = document.querySelector('#screen1');
 const screen2 = document.querySelector('#screen2');
-const buttonContainer = document.querySelector('.buttoncontainer');
-const numberButtons = buttonContainer.querySelectorAll('.btn');
-const clearButton = buttonContainer.querySelector('#clear');
+const calcContainer = document.querySelector('.calcContainer');
+const numberButtons = calcContainer.querySelectorAll('.btn');
+const clearButton = calcContainer.querySelector('#clear');
 const historyDisplay = document.querySelector('#calculator-display');
 const powerButton = document.querySelector('.fa');
 let storedValue = [], storedOperator = [], screenLength = [],
@@ -198,10 +198,10 @@ function powerOffOn(e) {
     powerButton.classList.toggle('show');
     screen2.classList.toggle('screen2-toggle');
     if (e.target.classList[2] == 'show') {
-        buttonContainer.addEventListener('click', operator);
+        calcContainer.addEventListener('click', operator);
         window.addEventListener('keypress', operatorKeyboard);
     } else if (e.target.classList[0] == 'fa') {
-        buttonContainer.removeEventListener('click', operator);
+        calcContainer.removeEventListener('click', operator);
         window.removeEventListener('keypress', operatorKeyboard);
         clearAllNumbers();
     }
