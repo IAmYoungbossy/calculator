@@ -26,19 +26,19 @@ function divide(a, b) {
 }
 
 function operator(e) {
-        checkOperatorType(e.target.value);
-        for(let i = 0; i < 10; i++) numberBtn(e.target.value, `${i}`);
-        addDecimal(e.target.textContent);
-        clearDefaultZero();
-        deleteRecentNumber(e.target.value);
+    checkOperatorType(e.target.value);
+    for(let i = 0; i < 10; i++) numberBtn(e.target.value, `${i}`);
+    addDecimal(e.target.textContent);
+    clearDefaultZero();
+    deleteRecentNumber(e.target.value);
 }
 
 function operatorKeyboard(e) {
-        checkOperatorType(e.key);
-        for(let i = 0; i < 10; i++) numberBtn(e.key, `${i}`);
-        addDecimal(e.key);
-        clearDefaultZero();
-        deleteRecentNumber(e.key);
+    checkOperatorType(e.key);
+    for(let i = 0; i < 10; i++) numberBtn(e.key, `${i}`);
+    addDecimal(e.key);
+    clearDefaultZero();
+    deleteRecentNumber(e.key);
 }
 
 function checkOperatorType(target) {

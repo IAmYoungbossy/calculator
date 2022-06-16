@@ -1,6 +1,6 @@
 @font-face {
     font-family: myFirstFont;
-    src: url(Digital7Mono-B1g5.ttf);
+    src: url(./font/Digital7Mono-B1g5.ttf);
   }
 body {
     background-color: #2E2B32;
